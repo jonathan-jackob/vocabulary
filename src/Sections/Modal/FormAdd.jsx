@@ -37,6 +37,7 @@ const FormAdd = ({ handleClose }) => {
             fullWidth
           />
         </Grid>
+
         <Grid item xs={12} sm={6}>
           <TextField
             label="Spanish"
@@ -48,11 +49,12 @@ const FormAdd = ({ handleClose }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+
+        <Grid item xs={12}>
           <Types Type={Type} setType={setType} />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <TextField
             label="Comment"
             variant="standard"
@@ -64,25 +66,15 @@ const FormAdd = ({ handleClose }) => {
             multiline
           />
         </Grid>
+        <Grid item xs={12} textAlign="right" sx={{ mt: 3 }}>
+          <Button onClick={handleClose} variant="outlined" sx={{ px: 3 }} color="default">
+            Cancel
+          </Button>
+          <Button onClick={saveWord} variant="outlined" sx={{ ml: 2, px: 3 }}>
+            Save
+          </Button>
+        </Grid>
       </Grid>
-
-      <Container
-        sx={{
-          position: "absolute",
-          left: 0,
-          bottom: 0,
-          right: 0,
-          textAlign: "right",
-          pb: 2,
-        }}
-      >
-        <Button onClick={handleClose} variant="outlined">
-          Close
-        </Button>
-        <Button onClick={saveWord} variant="outlined" sx={{ ml: 1 }}>
-          Save
-        </Button>
-      </Container>
     </Container>
   );
 };

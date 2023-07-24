@@ -30,6 +30,9 @@ const theme = createTheme({
     dark: {
       main: grey[900],
     },
+    default: {
+      main: grey[700],
+    },
   },
 });
 
