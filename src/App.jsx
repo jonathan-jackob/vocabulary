@@ -1,30 +1,71 @@
-import { useRef, useState } from "react";
-import { Box, Button, Container, Divider, Icon, List } from "@mui/material";
+import {
+  Container,
+  Divider,
+  Grid,
+  InputAdornment,
+  List,
+  TextField,
+  Typography,
+} from "@mui/material";
 import CustomListItem from "./Components/CustomListItem";
-import Navegador from "./Sections/Navegador";
-import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import Modal from "./Sections/Modal";
+import { Search } from "@mui/icons-material";
 
 function App() {
-  const [tab, setTab] = useState(0);
-  const ref = useRef(null);
-
   return (
     <>
-      <Container sx={{ pb: 7, pt: 2, backgroundColor: "danger" }} ref={ref}>
-        <Box textAlign="right">
-          <Button variant="outlined">
-            Add <PostAddOutlinedIcon />
-          </Button>
-        </Box>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: 24,
+          fontWeight: 700,
+          textAlign: "center",
+          py: 1,
+          mb: 1,
+          bgcolor: "primary.main",
+          color: "light.main",
+          boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
+        }}
+      >
+        VOCABULARY
+      </Typography>
+      <Container maxWidth={false} sx={{ pb: 7, pt: 2, height: "100%" }}>
+        <Grid
+          container
+          justifyContent="space-between"
+          direction="row"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item xs={8} md={10}>
+            <TextField
+              label="Search"
+              variant="outlined"
+              size="small"
+              type="search"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4} md={2}>
+            <Modal />
+          </Grid>
+        </Grid>
         <List>
           <CustomListItem
-            title="holi"
-            image="https://psicoterapeutas.eu/imagenes-psicoterapeutas-eu/tests-objetivos.png"
+            title="Run (Correr)"
+            image="https://images.pexels.com/photos/531844/pexels-photo-531844.jpeg?auto=compress&cs=tinysrgb&w=200&dpr=2"
           />
           <Divider />
         </List>
 
-        <Navegador tab={tab} setTab={setTab} />
+        {/* <Navegador tab={tab} setTab={setTab} /> */}
       </Container>
     </>
   );

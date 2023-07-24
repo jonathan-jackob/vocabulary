@@ -6,7 +6,7 @@ const CustomListItem = ({ title, image }) => {
   return (
     <ListItem>
       <ListItemAvatar>
-        <Avatar alt="Travis Howard" src={image} />
+        <Avatar alt="Travis Howard" src={image} variant="square" />
       </ListItemAvatar>
       <ListItemText primary={title} secondary="second" />
     </ListItem>
