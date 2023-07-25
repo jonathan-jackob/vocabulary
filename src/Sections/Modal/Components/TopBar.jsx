@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
-const TopBar = ({ handleClose }) => {
+const TopBar = ({ handleClose, title }) => {
   return (
     <AppBar sx={{ position: "relative" }}>
       <Toolbar>
@@ -16,7 +16,7 @@ const TopBar = ({ handleClose }) => {
           <Close />
         </IconButton>
         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-          Add Item of vocabulary
+          {title}
         </Typography>
       </Toolbar>
     </AppBar>
@@ -25,6 +25,7 @@ const TopBar = ({ handleClose }) => {
 
 TopBar.propTypes = {
   handleClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
 };
 
 export default TopBar;

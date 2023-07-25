@@ -7,21 +7,32 @@ import {
   Typography,
 } from "@mui/material";
 import CustomListItem from "./Components/VocabularyListItem";
-import Modal from "./Sections/Modal";
+import ModalAdd from "./Sections/Modal/ModalAdd";
 import { Search } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import ModalEdit from "./Sections/Modal/ModalEdit";
 
 function App() {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalAdd, setOpenModalAdd] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
+
   useEffect(() => {
-    if (!openModal) {
+    if (!openModalAdd) {
       const LS = localStorage.getItem("vocabulary");
       if (LS != null) {
         setDataVocabulary(JSON.parse(LS));
       }
     }
-  }, [openModal]);
+  }, [openModalAdd]);
+
+  const deleteRegistry = (id) => {
+    const filter = dataVocabulary.filter((item) => {
+      return item.id !== id;
+    });
+    setDataVocabulary(filter);
+    localStorage.setItem("vocabulary", JSON.stringify(filter));
+  };
 
   return (
     <>
@@ -65,16 +76,23 @@ function App() {
             />
           </Grid>
           <Grid item xs={4} md={2}>
-            <Modal open={openModal} setOpen={setOpenModal} />
+            <ModalAdd open={openModalAdd} setOpen={setOpenModalAdd} />
           </Grid>
         </Grid>
         <List>
-          {dataVocabulary.map((element) => (
-            <CustomListItem {...element} key={element.id} />
+          {dataVocabulary.map((form) => (
+            <CustomListItem
+              form={form}
+              key={form.id}
+              openEdit={() => {
+                setOpenModalEdit(true);
+              }}
+              deleteItem={deleteRegistry}
+            />
           ))}
         </List>
 
-        {/* <Navegador tab={tab} setTab={setTab} /> */}
+        <ModalEdit open={openModalEdit} setOpen={setOpenModalEdit} />
       </Container>
     </>
   );

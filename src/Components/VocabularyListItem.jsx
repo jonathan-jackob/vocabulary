@@ -8,16 +8,20 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { EditOutlined, VisibilityOutlined } from "@mui/icons-material";
+import {
+  DeleteOutline,
+  EditOutlined,
+  VisibilityOutlined,
+} from "@mui/icons-material";
 
-const CustomListItem = ({ word, spanish, image, types }) => {
-  let title = word + (spanish != "" ? ` (${spanish})` : "");
+const VocabularyListItem = ({ form, openEdit, deleteItem }) => {
+  let title = form.word + (form.spanish != "" ? ` (${form.spanish})` : "");
 
   const getSecondary = () => {
     let secondary = "";
-    for (const type in types) {
-      if (Object.hasOwnProperty.call(types, type)) {
-        if (types[type]) {
+    for (const type in form.types) {
+      if (Object.hasOwnProperty.call(form.types, type)) {
+        if (form.types[type]) {
           secondary += secondary != "" ? " ," : "";
           secondary += type;
         }
@@ -26,30 +30,49 @@ const CustomListItem = ({ word, spanish, image, types }) => {
     return secondary;
   };
 
+  const deleteRegistry = () => {
+    deleteItem(form.id);
+  };
   return (
     <>
       <ListItem>
         <ListItemAvatar>
-          <Avatar alt="Travis Howard" src={image} variant="square" />
+          <Avatar alt="Travis Howard" src={form.image} variant="square" />
         </ListItemAvatar>
         <ListItemText primary={title} secondary={getSecondary()} />
         <ListItemIcon>
           <VisibilityOutlined color="success" />
         </ListItemIcon>
-        <ListItemIcon>
-          <EditOutlined color="info" />
-        </ListItemIcon>
+        {typeof openEdit === "function" && (
+          <ListItemIcon>
+            <EditOutlined
+              onClick={openEdit}
+              sx={{ cursor: "pointer" }}
+              color="info"
+            />
+          </ListItemIcon>
+        )}
+        {typeof deleteItem === "function" && (
+          <ListItemIcon>
+            <DeleteOutline
+              onClick={deleteRegistry}
+              sx={{ cursor: "pointer" }}
+              color="danger"
+            />
+          </ListItemIcon>
+        )}
       </ListItem>
       <Divider />
     </>
   );
 };
 
-CustomListItem.propTypes = {
-  word: PropTypes.string.isRequired,
-  spanish: PropTypes.string,
-  image: PropTypes.string,
-  types: PropTypes.object,
+VocabularyListItem.propTypes = {
+  form: PropTypes.object.isRequired,
+  openEdit: PropTypes.func,
+  deleteItem: PropTypes.func,
 };
 
-export default CustomListItem;
+VocabularyListItem.defaultProps = {};
+
+export default VocabularyListItem;

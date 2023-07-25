@@ -8,22 +8,25 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Types from "./Types";
-import CustomListItem from "../../Components/VocabularyListItem";
+import Types from "../Components/Types";
+import VocabularyListItem from "../../../Components/VocabularyListItem";
 
 const FormAdd = ({ handleClose }) => {
-  const typesInit = {
-    noun: false,
-    verb: false,
-    adjetive: false,
-    preposition: false,
-    adverb: false,
+  const formInit = {
+    word: "",
+    spanish: "",
+    types: {
+      noun: false,
+      verb: false,
+      adjetive: false,
+      preposition: false,
+      adverb: false,
+    },
+    image: "",
+    comment: "",
   };
-  const [Word, setWord] = useState("");
-  const [Spanish, setSpanish] = useState("");
-  const [Type, setType] = useState(typesInit);
-  const [Comment, setComment] = useState("");
-  const [Image, setImage] = useState("");
+  const [Form, setForm] = useState(formInit);
+
   const saveWord = () => {
     const LS = localStorage.getItem("vocabulary");
     let jsonVocabulary = [];
@@ -33,20 +36,14 @@ const FormAdd = ({ handleClose }) => {
 
     jsonVocabulary.push({
       id: Date.now(),
-      word: Word,
-      spanish: Spanish,
-      types: Type,
-      image: Image,
-      comment: Comment,
+      ...Form,
     });
 
     localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
 
-    setWord("");
-    setSpanish("");
-    setType(typesInit);
-    setImage("");
-    setComment("");
+    //limpieza de formulario
+    setForm(formInit);
+
     handleClose();
   };
 
@@ -57,9 +54,9 @@ const FormAdd = ({ handleClose }) => {
           <TextField
             label="Word"
             variant="standard"
-            value={Word}
+            value={Form.word}
             onChange={(event) => {
-              setWord(event.target.value);
+              setForm({ ...Form, word: event.target.value });
             }}
             fullWidth
           />
@@ -69,25 +66,25 @@ const FormAdd = ({ handleClose }) => {
           <TextField
             label="Spanish"
             variant="standard"
-            value={Spanish}
+            value={Form.spanish}
             onChange={(event) => {
-              setSpanish(event.target.value);
+              setForm({ ...Form, spanish: event.target.value });
             }}
             fullWidth
           />
         </Grid>
 
         <Grid item xs={12}>
-          <Types Type={Type} setType={setType} />
+          <Types Form={Form} setForm={setForm} />
         </Grid>
 
         <Grid item xs={12}>
           <TextField
             label="URL Image"
             variant="standard"
-            value={Image}
+            value={Form.image}
             onChange={(event) => {
-              setImage(event.target.value);
+              setForm({ ...Form, image: event.target.value });
             }}
             fullWidth
           />
@@ -97,9 +94,9 @@ const FormAdd = ({ handleClose }) => {
           <TextField
             label="Comment"
             variant="standard"
-            value={Comment}
+            value={Form.comment}
             onChange={(event) => {
-              setComment(event.target.value);
+              setForm({ ...Form, comment: event.target.value });
             }}
             fullWidth
             multiline
@@ -108,12 +105,7 @@ const FormAdd = ({ handleClose }) => {
         <Grid item xs={12} sx={{ my: 4 }}>
           <Typography>Preview</Typography>
           <List sx={{ bgcolor: "#eee" }}>
-            <CustomListItem
-              word={Word}
-              spanish={Spanish}
-              image="https://images.pexels.com/photos/531844/pexels-photo-531844.jpeg?auto=compress&cs=tinysrgb&w=200&dpr=2"
-              types={Type}
-            />
+            <VocabularyListItem form={Form} />
           </List>
         </Grid>
 

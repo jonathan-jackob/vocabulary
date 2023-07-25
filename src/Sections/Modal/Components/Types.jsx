@@ -4,18 +4,20 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
   FormLabel,
 } from "@mui/material";
 import { Box } from "@mui/system";
 
-const Types = ({ Type, setType }) => {
-  const { noun, verb, adjetive, preposition, adverb } = Type;
+const Types = ({ Form, setForm }) => {
+  const { noun, verb, adjetive, preposition, adverb } = Form.types;
 
   const handleChange = (event) => {
-    setType({
-      ...Type,
-      [event.target.name]: event.target.checked,
+    setForm({
+      ...Form,
+      types: {
+        ...Form.types,
+        [event.target.name]: event.target.checked,
+      },
     });
   };
 
@@ -67,8 +69,8 @@ const Types = ({ Type, setType }) => {
 };
 
 Types.propTypes = {
-  Type: PropTypes.object.isRequired,
-  setType: PropTypes.func.isRequired,
+  Form: PropTypes.object.isRequired,
+  setForm: PropTypes.func.isRequired,
 };
 
 export default Types;
