@@ -1,24 +1,28 @@
+import { useEffect, useState } from "react";
 import {
+  Box,
   Container,
+  Fab,
   Grid,
   InputAdornment,
   List,
   TextField,
   Typography,
 } from "@mui/material";
+import { Search, Favorite } from "@mui/icons-material";
 import CustomListItem from "./Components/VocabularyListItem";
 import ModalAdd from "./Sections/Modal/ModalAdd";
-import { Search } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 import ModalEdit from "./Sections/Modal/ModalEdit";
 
 import formInit from "./dataSturcture/word";
+import TitleBar from "./Sections/TitleBar";
 
 function App() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
   const [dataModalEdit, setDataModalEdit] = useState(formInit);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   useEffect(() => {
     if (!openModalAdd) {
@@ -27,7 +31,7 @@ function App() {
         setDataVocabulary(JSON.parse(LS));
       }
     }
-  }, [openModalAdd, openModalEdit]);
+  }, [openModalAdd, openModalEdit, openDrawer]);
 
   const deleteRegistry = (id) => {
     const filter = dataVocabulary.filter((item) => {
@@ -44,21 +48,7 @@ function App() {
 
   return (
     <>
-      <Typography
-        variant="h1"
-        sx={{
-          fontSize: 24,
-          fontWeight: 700,
-          textAlign: "center",
-          py: 2,
-          mb: 1,
-          bgcolor: "primary.main",
-          color: "light.main",
-          boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
-        }}
-      >
-        VOCABULARY
-      </Typography>
+      <TitleBar openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
       <Container maxWidth={false} sx={{ pb: 7, pt: 2, height: "100%" }}>
         <Grid
           container
