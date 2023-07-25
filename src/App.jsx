@@ -12,10 +12,13 @@ import { Search } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import ModalEdit from "./Sections/Modal/ModalEdit";
 
+import formInit from "./dataSturcture/word";
+
 function App() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
+  const [dataModalEdit, setDataModalEdit] = useState(formInit);
 
   useEffect(() => {
     if (!openModalAdd) {
@@ -24,7 +27,7 @@ function App() {
         setDataVocabulary(JSON.parse(LS));
       }
     }
-  }, [openModalAdd]);
+  }, [openModalAdd, openModalEdit]);
 
   const deleteRegistry = (id) => {
     const filter = dataVocabulary.filter((item) => {
@@ -32,6 +35,11 @@ function App() {
     });
     setDataVocabulary(filter);
     localStorage.setItem("vocabulary", JSON.stringify(filter));
+  };
+
+  const openEditWord = (form) => {
+    setDataModalEdit(form);
+    setOpenModalEdit(true);
   };
 
   return (
@@ -42,7 +50,7 @@ function App() {
           fontSize: 24,
           fontWeight: 700,
           textAlign: "center",
-          py: 1,
+          py: 2,
           mb: 1,
           bgcolor: "primary.main",
           color: "light.main",
@@ -85,14 +93,19 @@ function App() {
               form={form}
               key={form.id}
               openEdit={() => {
-                setOpenModalEdit(true);
+                openEditWord(form);
               }}
               deleteItem={deleteRegistry}
             />
           ))}
         </List>
 
-        <ModalEdit open={openModalEdit} setOpen={setOpenModalEdit} />
+        <ModalEdit
+          open={openModalEdit}
+          setOpen={setOpenModalEdit}
+          form={dataModalEdit}
+          setForm={setDataModalEdit}
+        />
       </Container>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -10,30 +10,22 @@ import {
 } from "@mui/material";
 import Types from "../Components/Types";
 import VocabularyListItem from "../../../Components/VocabularyListItem";
-import formInit from "../../../dataSturcture/word";
 
-const FormAdd = ({ handleClose }) => {
-  const [Form, setForm] = useState(formInit);
-
+const FormEdit = ({ Form, setForm, handleClose }) => {
   const saveWord = () => {
     const LS = localStorage.getItem("vocabulary");
     let jsonVocabulary = [];
 
     if (LS != null) {
-      jsonVocabulary = JSON.parse(LS);
+      let jsonTempo = JSON.parse(LS);
+      jsonVocabulary = jsonTempo.map((vocabulary) =>
+        Form.id == vocabulary.id ? Form : vocabulary
+      );
+
+      localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
+
+      handleClose();
     }
-
-    jsonVocabulary.push({
-      id: Date.now(),
-      ...Form,
-    });
-
-    localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
-
-    //limpieza de formulario
-    setForm(formInit);
-
-    handleClose();
   };
 
   return (
@@ -116,8 +108,10 @@ const FormAdd = ({ handleClose }) => {
   );
 };
 
-FormAdd.propTypes = {
+FormEdit.propTypes = {
+  Form: PropTypes.object.isRequired,
+  setForm: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
-export default FormAdd;
+export default FormEdit;

@@ -37,7 +37,7 @@ const ModalAdd = ({ open, setOpen }) => {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <TopBar handleClose={handleClose} title="Add Item of vocabulary" />
+        <TopBar handleClose={handleClose} title="Add Word the vocabulary" />
         <FormAdd handleClose={handleClose} />
       </Dialog>
     </>
