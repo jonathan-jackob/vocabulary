@@ -10,9 +10,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Modal() {
-  const [open, setOpen] = React.useState(false);
-
+export default function Modal({ open, setOpen }) {
   const handleClickOpen = () => {
     setOpen(true);
   };

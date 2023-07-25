@@ -1,17 +1,28 @@
 import {
   Container,
-  Divider,
   Grid,
   InputAdornment,
   List,
   TextField,
   Typography,
 } from "@mui/material";
-import CustomListItem from "./Components/CustomListItem";
+import CustomListItem from "./Components/VocabularyListItem";
 import Modal from "./Sections/Modal";
 import { Search } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [openModal, setOpenModal] = useState(false);
+  const [dataVocabulary, setDataVocabulary] = useState([]);
+  useEffect(() => {
+    if (!openModal) {
+      const LS = localStorage.getItem("vocabulary");
+      if (LS != null) {
+        setDataVocabulary(JSON.parse(LS));
+      }
+    }
+  }, [openModal]);
+
   return (
     <>
       <Typography
@@ -54,15 +65,13 @@ function App() {
             />
           </Grid>
           <Grid item xs={4} md={2}>
-            <Modal />
+            <Modal open={openModal} setOpen={setOpenModal} />
           </Grid>
         </Grid>
         <List>
-          <CustomListItem
-            title="Run (Correr)"
-            image="https://images.pexels.com/photos/531844/pexels-photo-531844.jpeg?auto=compress&cs=tinysrgb&w=200&dpr=2"
-          />
-          <Divider />
+          {dataVocabulary.map((element) => (
+            <CustomListItem {...element} key={element.id} />
+          ))}
         </List>
 
         {/* <Navegador tab={tab} setTab={setTab} /> */}

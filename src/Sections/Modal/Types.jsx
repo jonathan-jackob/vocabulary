@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormLabel,
 } from "@mui/material";
+import { Box } from "@mui/system";
 
 const Types = ({ Type, setType }) => {
   const { noun, verb, adjetive, preposition, adverb } = Type;
@@ -19,9 +20,9 @@ const Types = ({ Type, setType }) => {
   };
 
   return (
-    <FormControl>
-      <FormLabel component="legend">Assign responsibility</FormLabel>
-      <FormGroup>
+    <FormControl sx={{ mt: 2 }}>
+      <FormLabel component="legend">Check the type</FormLabel>
+      <Box>
         <FormControlLabel
           control={
             <Checkbox name="noun" checked={noun} onChange={handleChange} />
@@ -60,7 +61,7 @@ const Types = ({ Type, setType }) => {
           }
           label="Adverb"
         />
-      </FormGroup>
+      </Box>
     </FormControl>
   );
 };

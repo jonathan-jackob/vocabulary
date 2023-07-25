@@ -31,7 +31,9 @@ const theme = createTheme({
       main: grey[900],
     },
     default: {
+      light: grey[400],
       main: grey[700],
+      dark: grey[900],
     },
   },
 });
