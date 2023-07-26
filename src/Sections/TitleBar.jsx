@@ -17,7 +17,6 @@ const TitleBar = ({ openDrawer, setOpenDrawer }) => {
           mb: 1,
           bgcolor: "primary.main",
           color: "light.main",
-          boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
           position: "relative",
         }}
       >

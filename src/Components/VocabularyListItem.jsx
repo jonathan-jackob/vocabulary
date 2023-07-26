@@ -36,7 +36,9 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
   };
 
   const deleteRegistry = () => {
-    deleteItem(form.id);
+    if (confirm("Estas seguro de eliminar " + form.word)) {
+      deleteItem(form.id);
+    }
   };
   return (
     <>

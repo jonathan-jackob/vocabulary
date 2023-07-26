@@ -61,14 +61,23 @@ function App() {
 
   return (
     <>
-      <TitleBar openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-      <Container maxWidth={false} sx={{ pb: 7, pt: 2, height: "100%" }}>
+      <Box
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          bgcolor: "#fff",
+          boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
+        }}
+      >
+        <TitleBar openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         <Grid
           container
           justifyContent="space-between"
           direction="row"
           alignItems="center"
           spacing={2}
+          sx={{ pb: 1, pt: 1 }}
         >
           <Grid item xs={8} md={10}>
             <TextField
@@ -94,6 +103,11 @@ function App() {
             <ModalAdd open={openModalAdd} setOpen={setOpenModalAdd} />
           </Grid>
         </Grid>
+      </Box>
+      <Container
+        maxWidth={false}
+        sx={{ pb: 7, height: "100%", position: "relative" }}
+      >
         <Box sx={{ mt: 2 }}>
           <List>
             {dataVocabulary.map((form, key) => (
