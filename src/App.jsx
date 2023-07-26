@@ -77,7 +77,7 @@ function App() {
           direction="row"
           alignItems="center"
           spacing={2}
-          sx={{ pb: 1, pt: 1 }}
+          sx={{ p: 1 }}
         >
           <Grid item xs={8} md={10}>
             <TextField

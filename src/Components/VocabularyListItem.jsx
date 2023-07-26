@@ -12,25 +12,55 @@ import {
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
 const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
-  let title = form.word + (form.spanish != "" ? ` (${form.spanish})` : "");
-
-  const getSecondary = () => {
-    let secondary = "";
+  const getTitle = () => {
+    let typesWord = "";
     for (const type in form.types) {
       if (Object.hasOwnProperty.call(form.types, type)) {
         if (form.types[type]) {
-          secondary += secondary != "" ? ", " : "";
-          secondary += type.toUpperCase();
+          typesWord += typesWord != "" ? " - " : "";
+          typesWord += type.toUpperCase();
+        }
+      }
+    }
+
+    return (
+      <Typography fontSize={14} variant="subtitle2">
+        {form.word}
+        {form.spanish !== "" && (
+          <Typography fontSize={14} variant="subtitle1" component="span">
+            {" - " + form.spanish}
+          </Typography>
+        )}
+      </Typography>
+    );
+  };
+
+  const getSecondary = () => {
+    let typesWord = "";
+    for (const type in form.types) {
+      if (Object.hasOwnProperty.call(form.types, type)) {
+        if (form.types[type]) {
+          typesWord += typesWord != "" ? ", " : "";
+          typesWord += type.toUpperCase();
         }
       }
     }
 
     return (
       <>
-        <Typography sx={{ display: "inline" }} component="span" fontSize={12}>
-          {secondary}
+        <Typography
+          fontSize={10}
+          variant="subtitle2"
+          component="span"
+          sx={{ display: "block" }}
+        >
+          {typesWord}
         </Typography>
-        {form.comment != "" && " - " + form.comment}
+        {form.comment != "" && (
+          <Typography fontSize={10} variant="subtitle1" component="small">
+            {form.comment}
+          </Typography>
+        )}
       </>
     );
   };
@@ -40,6 +70,7 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
       deleteItem(form.id);
     }
   };
+
   return (
     <>
       <ListItem
@@ -49,7 +80,7 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
         <ListItemAvatar>
           <Avatar alt="Travis Howard" src={form.image} variant="square" />
         </ListItemAvatar>
-        <ListItemText primary={title} secondary={getSecondary()} />
+        <ListItemText primary={getTitle()} secondary={getSecondary()} />
 
         {typeof openEdit === "function" && (
           <ListItemIcon sx={{ minWidth: 36 }}>
