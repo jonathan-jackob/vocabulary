@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Types from "../Components/Types";
 import VocabularyListItem from "../../../Components/VocabularyListItem";
+import ordenarAsc from "../../../functions/order";
 
 const FormEdit = ({ Form, setForm, handleClose }) => {
   const saveWord = () => {
@@ -22,6 +23,8 @@ const FormEdit = ({ Form, setForm, handleClose }) => {
         Form.id == vocabulary.id ? Form : vocabulary
       );
 
+      ordenarAsc(jsonVocabulary, "word");
+
       localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
 
       handleClose();
@@ -29,7 +32,7 @@ const FormEdit = ({ Form, setForm, handleClose }) => {
   };
 
   return (
-    <Container sx={{ pt: 2 }}>
+    <Container sx={{ py: 2 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -83,7 +86,7 @@ const FormEdit = ({ Form, setForm, handleClose }) => {
             multiline
           />
         </Grid>
-        <Grid item xs={12} sx={{ my: 4 }}>
+        <Grid item xs={12} sx={{ my: 2 }}>
           <Typography>Preview</Typography>
           <List sx={{ bgcolor: "#eee" }}>
             <VocabularyListItem form={Form} />

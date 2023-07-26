@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Container,
-  Fab,
   Grid,
   InputAdornment,
   List,
   TextField,
-  Typography,
 } from "@mui/material";
-import { Search, Favorite } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
 import CustomListItem from "./Components/VocabularyListItem";
 import ModalAdd from "./Sections/Modal/ModalAdd";
 import ModalEdit from "./Sections/Modal/ModalEdit";
@@ -23,21 +21,36 @@ function App() {
   const [dataVocabulary, setDataVocabulary] = useState([]);
   const [dataModalEdit, setDataModalEdit] = useState(formInit);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [searchWord, setSearchWord] = useState("");
 
   useEffect(() => {
     if (!openModalAdd) {
       const LS = localStorage.getItem("vocabulary");
+
       if (LS != null) {
-        setDataVocabulary(JSON.parse(LS));
+        const objData = JSON.parse(LS);
+        if (searchWord.trim() == "") {
+          setDataVocabulary(objData);
+        } else {
+          setDataVocabulary(
+            objData.filter((item) => {
+              const word = String(item.word).toLowerCase();
+              const search = searchWord.trim().toLowerCase();
+              return word.includes(search);
+            })
+          );
+        }
       }
     }
-  }, [openModalAdd, openModalEdit, openDrawer]);
+  }, [openModalAdd, openModalEdit, openDrawer, searchWord]);
 
   const deleteRegistry = (id) => {
     const filter = dataVocabulary.filter((item) => {
       return item.id !== id;
     });
+
     setDataVocabulary(filter);
+
     localStorage.setItem("vocabulary", JSON.stringify(filter));
   };
 
@@ -63,6 +76,10 @@ function App() {
               variant="outlined"
               size="small"
               type="search"
+              value={searchWord}
+              onChange={(event) => {
+                setSearchWord(event.target.value);
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -77,18 +94,21 @@ function App() {
             <ModalAdd open={openModalAdd} setOpen={setOpenModalAdd} />
           </Grid>
         </Grid>
-        <List>
-          {dataVocabulary.map((form) => (
-            <CustomListItem
-              form={form}
-              key={form.id}
-              openEdit={() => {
-                openEditWord(form);
-              }}
-              deleteItem={deleteRegistry}
-            />
-          ))}
-        </List>
+        <Box sx={{ mt: 2 }}>
+          <List>
+            {dataVocabulary.map((form, key) => (
+              <CustomListItem
+                form={form}
+                key={form.id}
+                openEdit={() => {
+                  openEditWord(form);
+                }}
+                deleteItem={deleteRegistry}
+                color={key % 2 == 0}
+              />
+            ))}
+          </List>
+        </Box>
 
         <ModalEdit
           open={openModalEdit}

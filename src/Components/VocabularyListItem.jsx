@@ -7,14 +7,11 @@ import {
   ListItemAvatar,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@mui/material";
-import {
-  DeleteOutline,
-  EditOutlined,
-  VisibilityOutlined,
-} from "@mui/icons-material";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
-const VocabularyListItem = ({ form, openEdit, deleteItem }) => {
+const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
   let title = form.word + (form.spanish != "" ? ` (${form.spanish})` : "");
 
   const getSecondary = () => {
@@ -22,12 +19,20 @@ const VocabularyListItem = ({ form, openEdit, deleteItem }) => {
     for (const type in form.types) {
       if (Object.hasOwnProperty.call(form.types, type)) {
         if (form.types[type]) {
-          secondary += secondary != "" ? " ," : "";
-          secondary += type;
+          secondary += secondary != "" ? ", " : "";
+          secondary += type.toUpperCase();
         }
       }
     }
-    return secondary;
+
+    return (
+      <>
+        <Typography sx={{ display: "inline" }} component="span" fontSize={12}>
+          {secondary}
+        </Typography>
+        {form.comment != "" && " - " + form.comment}
+      </>
+    );
   };
 
   const deleteRegistry = () => {
@@ -35,16 +40,17 @@ const VocabularyListItem = ({ form, openEdit, deleteItem }) => {
   };
   return (
     <>
-      <ListItem>
+      <ListItem
+        disablePadding
+        sx={{ bgcolor: color ? "#eee" : "#fff", px: 2, minHeight: 60 }}
+      >
         <ListItemAvatar>
           <Avatar alt="Travis Howard" src={form.image} variant="square" />
         </ListItemAvatar>
         <ListItemText primary={title} secondary={getSecondary()} />
-        <ListItemIcon>
-          <VisibilityOutlined color="success" />
-        </ListItemIcon>
+
         {typeof openEdit === "function" && (
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: 36 }}>
             <EditOutlined
               onClick={openEdit}
               sx={{ cursor: "pointer" }}
@@ -53,7 +59,7 @@ const VocabularyListItem = ({ form, openEdit, deleteItem }) => {
           </ListItemIcon>
         )}
         {typeof deleteItem === "function" && (
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: 36 }}>
             <DeleteOutline
               onClick={deleteRegistry}
               sx={{ cursor: "pointer" }}

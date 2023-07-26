@@ -11,6 +11,7 @@ import {
 import Types from "../Components/Types";
 import VocabularyListItem from "../../../Components/VocabularyListItem";
 import formInit from "../../../dataSturcture/word";
+import ordenarAsc from "../../../functions/order";
 
 const FormAdd = ({ handleClose }) => {
   const [Form, setForm] = useState(formInit);
@@ -28,6 +29,8 @@ const FormAdd = ({ handleClose }) => {
       ...Form,
     });
 
+    ordenarAsc(jsonVocabulary, "word");
+
     localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
 
     //limpieza de formulario
@@ -37,7 +40,7 @@ const FormAdd = ({ handleClose }) => {
   };
 
   return (
-    <Container sx={{ pt: 2 }}>
+    <Container sx={{ py: 2 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -91,7 +94,7 @@ const FormAdd = ({ handleClose }) => {
             multiline
           />
         </Grid>
-        <Grid item xs={12} sx={{ my: 4 }}>
+        <Grid item xs={12} sx={{ my: 2 }}>
           <Typography>Preview</Typography>
           <List sx={{ bgcolor: "#eee" }}>
             <VocabularyListItem form={Form} />
