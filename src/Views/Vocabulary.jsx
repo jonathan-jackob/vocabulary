@@ -3,19 +3,21 @@ import {
   Box,
   Container,
   Grid,
+  IconButton,
   InputAdornment,
   List,
   TextField,
+  Typography,
 } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import { MoreVertOutlined, Search } from "@mui/icons-material";
 import CustomListItem from "../Components/VocabularyListItem";
 import ModalAdd from "../Sections/Modal/ModalAdd";
 import ModalEdit from "../Sections/Modal/ModalEdit";
 
 import formInit from "../dataSturcture/word";
-import TitleBar from "../Sections/TitleBar";
+import DrawerVocabulary from "../Sections/DrawerVocabulary";
 
-function App() {
+function Vocabulary() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
@@ -70,7 +72,36 @@ function App() {
           boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
         }}
       >
-        <TitleBar openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: 24,
+            fontWeight: 700,
+            textAlign: "center",
+            py: 2,
+            mb: 1,
+            bgcolor: "primary.main",
+            color: "light.main",
+            position: "relative",
+          }}
+        >
+          VOCABULARY
+          <IconButton
+            sx={{
+              position: "absolute",
+              right: 10,
+              top: 0,
+              bottom: 0,
+              color: "light.main",
+            }}
+            onClick={() => {
+              setOpenDrawer(true);
+            }}
+          >
+            <MoreVertOutlined />
+          </IconButton>
+          <DrawerVocabulary open={openDrawer} setOpen={setOpenDrawer} />
+        </Typography>
         <Grid
           container
           justifyContent="space-between"
@@ -136,4 +167,4 @@ function App() {
   );
 }
 
-export default App;
+export default Vocabulary;
