@@ -4,8 +4,10 @@ import { Button, Dialog, Grid, Slide } from "@mui/material";
 import { PostAddOutlined } from "@mui/icons-material";
 import TopBar from "./Components/TopBar";
 import Form from "./Components/Form";
-import ordenarAsc from "../../functions/order";
 import formInit from "../../dataSturcture/word";
+import ordenarAsc from "../../Functions/ordenarAsc";
+import getVocabularyData from "../../Functions/getVocabularyData";
+import saveVocabularyData from "../../Functions/saveVocabularyData";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,12 +25,7 @@ const ModalAdd = ({ open, setOpen }) => {
   };
 
   const saveWord = () => {
-    const LS = localStorage.getItem("vocabulary");
-    let jsonVocabulary = [];
-
-    if (LS != null) {
-      jsonVocabulary = JSON.parse(LS);
-    }
+    let jsonVocabulary = getVocabularyData();
 
     jsonVocabulary.push({
       id: Date.now(),
@@ -37,9 +34,10 @@ const ModalAdd = ({ open, setOpen }) => {
 
     ordenarAsc(jsonVocabulary, "word");
     setFormState(formInit); // limpieza de formulario
-    localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
+    saveVocabularyData(jsonVocabulary);
     handleClose();
   };
+
   return (
     <>
       <Button

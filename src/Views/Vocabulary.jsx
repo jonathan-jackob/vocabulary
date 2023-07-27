@@ -16,6 +16,8 @@ import ModalEdit from "../Sections/Modal/ModalEdit";
 
 import formInit from "../dataSturcture/word";
 import DrawerVocabulary from "../Sections/DrawerVocabulary";
+import getVocabularyData from "../Functions/getVocabularyData";
+import saveVocabularyData from "../Functions/saveVocabularyData";
 
 function Vocabulary() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
@@ -27,33 +29,30 @@ function Vocabulary() {
 
   useEffect(() => {
     if (!openModalAdd) {
-      const LS = localStorage.getItem("vocabulary");
-
-      if (LS != null) {
-        const objData = JSON.parse(LS);
-        if (searchWord.trim() == "") {
-          setDataVocabulary(objData);
-        } else {
-          setDataVocabulary(
-            objData.filter((item) => {
-              const word = String(item.word).toLowerCase();
-              const search = searchWord.trim().toLowerCase();
-              return word.includes(search);
-            })
-          );
-        }
+      const objData = getVocabularyData();
+      if (searchWord.trim() == "") {
+        setDataVocabulary(objData);
+      } else {
+        setDataVocabulary(
+          objData.filter((item) => {
+            const word = String(item.word).toLowerCase();
+            const search = searchWord.trim().toLowerCase();
+            return word.includes(search);
+          })
+        );
       }
     }
   }, [openModalAdd, openModalEdit, openDrawer, searchWord]);
 
   const deleteRegistry = (id) => {
-    const filter = dataVocabulary.filter((item) => {
+    let jsonVocabulary = getVocabularyData();
+    const filter = jsonVocabulary.filter((item) => {
       return item.id !== id;
     });
 
     setDataVocabulary(filter);
 
-    localStorage.setItem("vocabulary", JSON.stringify(filter));
+    saveVocabularyData(filter);
   };
 
   const openEditWord = (form) => {

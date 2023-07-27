@@ -4,7 +4,9 @@ import { Box, Button, Dialog, Grid, Slide } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import TopBar from "./Components/TopBar";
 import Form from "./Components/Form";
-import ordenarAsc from "../../functions/order";
+import ordenarAsc from "../../Functions/ordenarAsc";
+import getVocabularyData from "../../Functions/getVocabularyData";
+import saveVocabularyData from "../../Functions/saveVocabularyData";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -12,19 +14,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const ModalEdit = ({ open, setOpen, form, setForm, deleteRegistry }) => {
   const saveWord = () => {
-    const LS = localStorage.getItem("vocabulary");
-    let jsonVocabulary = [];
+    let jsonTempo = getVocabularyData();
+    let jsonVocabulary = jsonTempo.map((vocabulary) =>
+      form.id == vocabulary.id ? form : vocabulary
+    );
 
-    if (LS != null) {
-      let jsonTempo = JSON.parse(LS);
-      jsonVocabulary = jsonTempo.map((vocabulary) =>
-        form.id == vocabulary.id ? form : vocabulary
-      );
-
-      ordenarAsc(jsonVocabulary, "word");
-      localStorage.setItem("vocabulary", JSON.stringify(jsonVocabulary));
-      handleClose();
-    }
+    ordenarAsc(jsonVocabulary, "word");
+    saveVocabularyData(jsonVocabulary);
+    handleClose();
   };
 
   const handleClose = () => {
