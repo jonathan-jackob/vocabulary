@@ -56,7 +56,7 @@ const DrawerVocabulary = ({ open, setOpen }) => {
       if (
         confirm("Se eliminaran los registros existentes, ¿deseas continuar?")
       ) {
-        saveVocabularyData(e.target.result);
+        saveVocabularyData(JSON.parse(e.target.result));
         closeDrawer();
       }
     };
