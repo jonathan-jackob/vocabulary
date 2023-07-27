@@ -9,7 +9,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import { EditOutlined } from "@mui/icons-material";
 
 const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
   const getTitle = () => {
@@ -65,12 +65,6 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
     );
   };
 
-  const deleteRegistry = () => {
-    if (confirm("Estas seguro de eliminar " + form.word)) {
-      deleteItem(form.id);
-    }
-  };
-
   return (
     <>
       <ListItem
@@ -88,15 +82,6 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
               onClick={openEdit}
               sx={{ cursor: "pointer" }}
               color="info"
-            />
-          </ListItemIcon>
-        )}
-        {typeof deleteItem === "function" && (
-          <ListItemIcon sx={{ minWidth: 36 }}>
-            <DeleteOutline
-              onClick={deleteRegistry}
-              sx={{ cursor: "pointer" }}
-              color="danger"
             />
           </ListItemIcon>
         )}

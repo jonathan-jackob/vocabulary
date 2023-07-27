@@ -17,7 +17,20 @@ const DrawerVocabulary = ({ open, setOpen }) => {
     setOpen(false);
   };
 
-  const refInput = useRef(null);
+  const addZero = (num) => (num < 10 ? "0" + num : num);
+
+  const date = () => {
+    const dateObj = new Date();
+    let date = "";
+    date += dateObj.getFullYear();
+    date += addZero(dateObj.getMonth() + 1); // getMonth() retorna de 0-11
+    date += addZero(dateObj.getDate());
+    date += addZero(dateObj.getHours());
+    date += addZero(dateObj.getMinutes());
+    date += addZero(dateObj.getSeconds());
+
+    return date;
+  };
 
   const backupData = () => {
     const data = localStorage.getItem("vocabulary");
@@ -26,7 +39,7 @@ const DrawerVocabulary = ({ open, setOpen }) => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "vocabulary.json";
+      link.download = "vocabulary_" + date() + ".json";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -43,6 +56,7 @@ const DrawerVocabulary = ({ open, setOpen }) => {
       ) {
         // console.log(e.target.result);
         localStorage.setItem("vocabulary", e.target.result);
+        closeDrawer();
       }
     };
   };
@@ -61,24 +75,23 @@ const DrawerVocabulary = ({ open, setOpen }) => {
           </ListItem>
           <Divider />
 
-          <ListItem key={2} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <UploadOutlined />
-              </ListItemIcon>
-              <label>
+          <label>
+            <ListItem key={2} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <UploadOutlined />
+                </ListItemIcon>
                 <ListItemText primary="Import data" />
                 <input
                   type="file"
                   accept="application/JSON"
                   className="d-none"
                   hidden
-                  ref={refInput}
                   onChange={handleChange}
                 />
-              </label>
-            </ListItemButton>
-          </ListItem>
+              </ListItemButton>
+            </ListItem>
+          </label>
           <Divider />
         </List>
       </Box>

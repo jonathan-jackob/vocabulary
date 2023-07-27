@@ -8,15 +8,14 @@ import {
   TextField,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import CustomListItem from "./Components/VocabularyListItem";
-import ModalAdd from "./Sections/Modal/ModalAdd";
-import ModalEdit from "./Sections/Modal/ModalEdit";
+import CustomListItem from "../Components/VocabularyListItem";
+import ModalAdd from "../Sections/Modal/ModalAdd";
+import ModalEdit from "../Sections/Modal/ModalEdit";
 
-import formInit from "./dataSturcture/word";
-import TitleBar from "./Sections/TitleBar";
-import Navegador from "./Sections/Navegador";
+import formInit from "../dataSturcture/word";
+import TitleBar from "../Sections/TitleBar";
 
-function Vocabulary() {
+function App() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
@@ -133,9 +132,8 @@ function Vocabulary() {
           deleteRegistry={deleteRegistry}
         />
       </Container>
-      <Navegador />
     </>
   );
 }
 
-export default Vocabulary;
+export default App;
