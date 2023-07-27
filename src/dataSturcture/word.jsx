@@ -1,6 +1,7 @@
 export default {
   word: "",
   spanish: "",
+  pronounce: "",
   types: {
     noun: false,
     verb: false,

@@ -32,11 +32,19 @@ const Form = ({ form, setForm, buttons }) => {
           />
         </Grid>
 
-        <Grid item xs={12}>
-          <Types Form={form} setForm={setForm} />
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Pronounce"
+            variant="standard"
+            value={form.pronounce}
+            onChange={(event) => {
+              setForm({ ...form, pronounce: event.target.value });
+            }}
+            fullWidth
+          />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             label="URL Image"
             variant="standard"
@@ -46,6 +54,10 @@ const Form = ({ form, setForm, buttons }) => {
             }}
             fullWidth
           />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Types Form={form} setForm={setForm} />
         </Grid>
 
         <Grid item xs={12}>
