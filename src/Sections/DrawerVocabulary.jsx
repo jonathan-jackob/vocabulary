@@ -36,17 +36,15 @@ const DrawerVocabulary = ({ open, setOpen }) => {
 
   const backupData = () => {
     const data = getVocabularyData();
-    if (data !== null) {
-      const blob = new Blob([data], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "vocabulary_" + date() + ".json";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      closeDrawer();
-    }
+    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "vocabulary_" + date() + ".json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    closeDrawer();
   };
 
   const handleChange = (event) => {
