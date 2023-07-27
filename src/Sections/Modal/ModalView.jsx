@@ -25,8 +25,6 @@ export default function ModalView() {
     <>
       <Button onClick={handleClickOpen}>dfe</Button>
       <Dialog open={open} onClose={handleClose}>
-        {/* <DialogTitle>Subscribe</DialogTitle> */}
-
         <Card sx={{ maxWidth: 345 }}>
           <CardHeader
             title="Shrimp and Chorizo Paella"
@@ -40,9 +38,7 @@ export default function ModalView() {
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              This impressive paella is a perfect party dish and a fun meal to
-              cook together with your guests. Add 1 cup of frozen peas along
-              with the mussels, if you like.
+              lkdwe
             </Typography>
           </CardContent>
 
