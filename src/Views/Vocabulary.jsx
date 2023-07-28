@@ -69,6 +69,36 @@ function Vocabulary() {
 
   return (
     <>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: 24,
+          fontWeight: 700,
+          textAlign: "center",
+          py: 2,
+          mb: 1,
+          bgcolor: "primary.main",
+          color: "light.main",
+          position: "relative",
+        }}
+      >
+        VOCABULARY
+        <IconButton
+          sx={{
+            position: "absolute",
+            right: 10,
+            top: 0,
+            bottom: 0,
+            color: "light.main",
+          }}
+          onClick={() => {
+            setOpenDrawer(true);
+          }}
+        >
+          <MoreVertOutlined />
+        </IconButton>
+        <DrawerVocabulary open={openDrawer} setOpen={setOpenDrawer} />
+      </Typography>
       <Box
         sx={{
           position: "sticky",
@@ -78,36 +108,6 @@ function Vocabulary() {
           boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
         }}
       >
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: 24,
-            fontWeight: 700,
-            textAlign: "center",
-            py: 2,
-            mb: 1,
-            bgcolor: "primary.main",
-            color: "light.main",
-            position: "relative",
-          }}
-        >
-          VOCABULARY
-          <IconButton
-            sx={{
-              position: "absolute",
-              right: 10,
-              top: 0,
-              bottom: 0,
-              color: "light.main",
-            }}
-            onClick={() => {
-              setOpenDrawer(true);
-            }}
-          >
-            <MoreVertOutlined />
-          </IconButton>
-          <DrawerVocabulary open={openDrawer} setOpen={setOpenDrawer} />
-        </Typography>
         <Grid
           container
           justifyContent="space-between"

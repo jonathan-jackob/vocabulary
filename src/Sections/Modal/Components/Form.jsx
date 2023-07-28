@@ -73,7 +73,7 @@ const Form = ({ form, setForm, buttons }) => {
           />
         </Grid>
         <Grid item xs={12} sx={{ my: 2 }}>
-          <Typography>Preview</Typography>
+          <Typography component="label">Preview</Typography>
           <List sx={{ bgcolor: "#eee" }}>
             <VocabularyListItem form={form} />
           </List>

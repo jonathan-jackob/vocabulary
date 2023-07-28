@@ -30,7 +30,9 @@ const Grammar = () => {
           GRAMMAR
         </Typography>
       </Box>
-      <Container>COMING SOON</Container>
+      <Typography variant="h1" component="div">
+        COMING SOON
+      </Typography>
     </>
   );
 };

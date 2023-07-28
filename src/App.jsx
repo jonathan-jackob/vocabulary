@@ -6,7 +6,14 @@ import { ChecklistOutlined, MenuBookOutlined } from "@mui/icons-material";
 import Grammar from "./Views/Grammar";
 
 function App() {
-  const [tab, setTab] = useState(0);
+  const tabLocal = localStorage.getItem("tab");
+  const [tab, setTab] = useState(tabLocal == null ? 0 : parseInt(tabLocal));
+
+  const handleTab = (event, value) => {
+    setTab(value);
+    localStorage.setItem("tab", value);
+  };
+
   return (
     <>
       {tab == 0 && <Vocabulary />}
@@ -23,9 +30,7 @@ function App() {
         <BottomNavigation
           showLabels
           value={tab}
-          onChange={(event, val) => {
-            setTab(val);
-          }}
+          onChange={handleTab}
           component="nav"
         >
           <BottomNavigationAction

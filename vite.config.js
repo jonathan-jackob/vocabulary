@@ -8,7 +8,7 @@ import WPAConfig from "./src/wpa.confing";
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA(WPAConfig),
+    VitePWA(WPAConfig()),
   ],
   base: "/vocabulary/",
 });

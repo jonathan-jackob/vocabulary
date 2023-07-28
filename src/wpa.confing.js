@@ -45,6 +45,10 @@ const WPAConfig = ()=>{
             },
           ],
         },
+        workbox: {
+          cleanupOutdatedCaches: true,
+          skipWaiting: true,
+        },
       };
 }
 

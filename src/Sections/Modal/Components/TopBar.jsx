@@ -15,7 +15,12 @@ const TopBar = ({ handleClose, title }) => {
         >
           <Close />
         </IconButton>
-        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+        <Typography
+          fontSize={25}
+          fontWeight={500}
+          component="div"
+          sx={{ ml: 2, flex: 1 }}
+        >
           {title}
         </Typography>
       </Toolbar>

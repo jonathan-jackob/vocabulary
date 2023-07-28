@@ -39,7 +39,7 @@ const ModalView = ({ open, setOpen, form }) => {
                     component="span"
                     // sx={{ fontStyle: "italic" }}
                   >
-                    {" (" + form.pronounce + ")"}
+                    {" / " + form.pronounce}
                   </Typography>
                 )}
               </>
@@ -66,7 +66,6 @@ const ModalView = ({ open, setOpen, form }) => {
             />
           </Box>
           <CardContent>
-            <Typography variant="body2" color="text.secondary"></Typography>
             {getTypes().map((type, key) => (
               <ChipCustomType
                 key={key}
@@ -84,6 +83,7 @@ const ModalView = ({ open, setOpen, form }) => {
                 px: "5px",
                 borderRadius: "5px",
                 color: "#606060",
+                overflow: "auto",
               }}
             >
               {form.comment ? form.comment : "No comment."}

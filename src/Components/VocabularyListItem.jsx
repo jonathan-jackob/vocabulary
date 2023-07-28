@@ -21,12 +21,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
       <Typography fontSize={14} variant="subtitle2">
         {form.word}
         {form.pronounce && (
-          <Typography
-            fontSize={14}
-            variant="subtitle1"
-            component="span"
-            // sx={{ fontStyle: "italic" }}
-          >
+          <Typography fontSize={14} variant="subtitle1" component="span">
             {" / " + form.pronounce + ""}
           </Typography>
         )}
@@ -39,20 +34,23 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
 
     return (
       <>
-        <Box>
-          {form.spanish && (
-            <Typography fontSize={14} variant="subtitle1" component="span">
-              {form.spanish}
-            </Typography>
-          )}
-          {typesWord.map((type, key) => (
-            <ChipCustomType
-              key={key}
-              type={type}
-              sx={{ ml: "5px", fontSize: 9 }}
-            />
-          ))}
-        </Box>
+        {form.spanish && (
+          <Typography
+            fontSize={14}
+            variant="subtitle1"
+            component="span"
+            sx={{ display: "block" }}
+          >
+            {form.spanish}
+          </Typography>
+        )}
+        {typesWord.map((type, key) => (
+          <ChipCustomType
+            key={key}
+            type={type}
+            sx={{ ml: key === 0 ? 0 : "5px", fontSize: 9 }}
+          />
+        ))}
       </>
     );
   };
