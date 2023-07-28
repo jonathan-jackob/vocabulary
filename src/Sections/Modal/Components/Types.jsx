@@ -27,13 +27,23 @@ const Types = ({ Form, setForm }) => {
       <Box>
         <FormControlLabel
           control={
-            <Checkbox name="noun" checked={noun} onChange={handleChange} />
+            <Checkbox
+              name="noun"
+              checked={noun}
+              onChange={handleChange}
+              color="noun"
+            />
           }
           label="Noun"
         />
         <FormControlLabel
           control={
-            <Checkbox name="verb" checked={verb} onChange={handleChange} />
+            <Checkbox
+              name="verb"
+              checked={verb}
+              onChange={handleChange}
+              color="verb"
+            />
           }
           label="Verb"
         />
@@ -43,6 +53,7 @@ const Types = ({ Form, setForm }) => {
               name="adjetive"
               checked={adjetive}
               onChange={handleChange}
+              color="adjetive"
             />
           }
           label="Adjetive"
@@ -53,13 +64,19 @@ const Types = ({ Form, setForm }) => {
               name="preposition"
               checked={preposition}
               onChange={handleChange}
+              color="preposition"
             />
           }
           label="Preposition"
         />
         <FormControlLabel
           control={
-            <Checkbox name="adverb" checked={adverb} onChange={handleChange} />
+            <Checkbox
+              name="adverb"
+              checked={adverb}
+              onChange={handleChange}
+              color="adverb"
+            />
           }
           label="Adverb"
         />

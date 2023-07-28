@@ -18,12 +18,14 @@ import formInit from "../dataSturcture/word";
 import DrawerVocabulary from "../Sections/DrawerVocabulary";
 import getVocabularyData from "../Functions/getVocabularyData";
 import saveVocabularyData from "../Functions/saveVocabularyData";
+import ModalView from "../Sections/Modal/ModalView";
 
 function Vocabulary() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [openModaView, setOpenModaView] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
-  const [dataModalEdit, setDataModalEdit] = useState(formInit);
+  const [dataModalEditView, setDataModalEditView] = useState(formInit);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [searchWord, setSearchWord] = useState("");
 
@@ -56,8 +58,13 @@ function Vocabulary() {
   };
 
   const openEditWord = (form) => {
-    setDataModalEdit(form);
+    setDataModalEditView(form);
     setOpenModalEdit(true);
+  };
+
+  const openViewWord = (form) => {
+    setDataModalEditView(form);
+    setOpenModaView(true);
   };
 
   return (
@@ -142,13 +149,19 @@ function Vocabulary() {
           <List>
             {dataVocabulary.map((form, key) => (
               <CustomListItem
-                form={form}
                 key={form.id}
+                form={form}
                 openEdit={() => {
                   openEditWord(form);
                 }}
-                deleteItem={deleteRegistry}
-                color={key % 2 == 0}
+                openView={() => {
+                  openViewWord(form);
+                }}
+                sx={{
+                  bgcolor: key % 2 == 0 ? "#eee" : "#fff",
+                  px: 2,
+                  minHeight: 60,
+                }}
               />
             ))}
           </List>
@@ -157,9 +170,14 @@ function Vocabulary() {
         <ModalEdit
           open={openModalEdit}
           setOpen={setOpenModalEdit}
-          form={dataModalEdit}
-          setForm={setDataModalEdit}
+          form={dataModalEditView}
+          setForm={setDataModalEditView}
           deleteRegistry={deleteRegistry}
+        />
+        <ModalView
+          open={openModaView}
+          setOpen={setOpenModaView}
+          form={dataModalEditView}
         />
       </Container>
     </>

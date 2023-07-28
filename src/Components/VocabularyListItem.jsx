@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   Avatar,
+  Box,
   Divider,
   ListItem,
   ListItemAvatar,
@@ -9,20 +10,13 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { EditOutlined } from "@mui/icons-material";
+import { EditOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
+import getTypesWord from "../Functions/getTypesWord";
+import ChipCustomType from "./ChipCustomType";
+import sinImagen from "../assets/no-disponible.png";
 
-const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
+const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   const getTitle = () => {
-    let typesWord = "";
-    for (const type in form.types) {
-      if (Object.hasOwnProperty.call(form.types, type)) {
-        if (form.types[type]) {
-          typesWord += typesWord != "" ? " - " : "";
-          typesWord += type.toUpperCase();
-        }
-      }
-    }
-
     return (
       <Typography fontSize={14} variant="subtitle2">
         {form.word}
@@ -36,26 +30,19 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
   };
 
   const getSecondary = () => {
-    let typesWord = "";
-    for (const type in form.types) {
-      if (Object.hasOwnProperty.call(form.types, type)) {
-        if (form.types[type]) {
-          typesWord += typesWord != "" ? ", " : "";
-          typesWord += type.toUpperCase();
-        }
-      }
-    }
+    const typesWord = getTypesWord(form.types);
 
     return (
       <>
-        <Typography
-          fontSize={10}
-          variant="subtitle2"
-          component="span"
-          sx={{ display: "block" }}
-        >
-          {typesWord}
-        </Typography>
+        <Box>
+          {typesWord.map((type, key) => (
+            <ChipCustomType
+              key={key}
+              type={type}
+              sx={{ ml: key == 0 ? "0" : "4px", fontSize: 9 }}
+            />
+          ))}
+        </Box>
         {form.comment != "" && (
           <Typography fontSize={10} variant="subtitle1" component="small">
             {form.comment}
@@ -67,17 +54,28 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
 
   return (
     <>
-      <ListItem
-        disablePadding
-        sx={{ bgcolor: color ? "#eee" : "#fff", px: 2, minHeight: 60 }}
-      >
+      <ListItem disablePadding {...others}>
         <ListItemAvatar>
-          <Avatar alt="Travis Howard" src={form.image} variant="square" />
+          <Avatar
+            alt="Travis Howard"
+            src={form.image.trim() != "" ? form.image : sinImagen}
+            variant="square"
+          />
         </ListItemAvatar>
         <ListItemText primary={getTitle()} secondary={getSecondary()} />
 
-        {typeof openEdit === "function" && (
+        {typeof openView === "function" && (
           <ListItemIcon sx={{ minWidth: 36 }}>
+            <RemoveRedEyeOutlined
+              onClick={openView}
+              sx={{ cursor: "pointer" }}
+              color="success"
+            />
+          </ListItemIcon>
+        )}
+
+        {typeof openEdit === "function" && (
+          <ListItemIcon sx={{ minWidth: 36, ml: 1 }}>
             <EditOutlined
               onClick={openEdit}
               sx={{ cursor: "pointer" }}
@@ -94,9 +92,7 @@ const VocabularyListItem = ({ form, openEdit, deleteItem, color }) => {
 VocabularyListItem.propTypes = {
   form: PropTypes.object.isRequired,
   openEdit: PropTypes.func,
-  deleteItem: PropTypes.func,
+  openView: PropTypes.func,
 };
-
-VocabularyListItem.defaultProps = {};
 
 export default VocabularyListItem;

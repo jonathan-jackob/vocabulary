@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { cyan, green, grey, orange, red, teal } from "@mui/material/colors";
+import TypesColors from "./TypesColors";
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const theme = createTheme({
       main: grey[700],
       dark: grey[900],
     },
+    ...TypesColors,
   },
 });
 

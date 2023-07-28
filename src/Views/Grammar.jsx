@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Container, Typography } from "@mui/material";
-import ModalView from "../Sections/Modal/ModalView";
 
 const Grammar = () => {
   return (
@@ -32,7 +31,6 @@ const Grammar = () => {
         </Typography>
       </Box>
       <Container>COMING SOON</Container>
-      <ModalView />
     </>
   );
 };

@@ -6,8 +6,8 @@ const WPAConfig = ()=>{
           theme_color: teal[600],
           background_color: teal[600],
           display: "standalone",
-          scope: "/",
-          start_url: "/",
+          scope: "/vocabulary/",
+          start_url: "/vocabulary/",
           short_name: "Vocabulary",
           description:
             "Aplicación donde puedes ver la gramática y guardar palabras nuevas.",
