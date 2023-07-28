@@ -11,14 +11,14 @@ import {
   Typography,
 } from "@mui/material";
 import { EditOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
-import getTypesWord from "../Functions/getTypesWord";
+import getTypesWord from "../../../Functions/getTypesWord";
+import sinImagen from "../../../assets/no-disponible.png";
 import ChipCustomType from "./ChipCustomType";
-import sinImagen from "../assets/no-disponible.png";
 
 const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   const getTitle = () => {
     return (
-      <Typography fontSize={14} variant="subtitle2">
+      <Typography fontSize={14} variant="subtitle2" component="label">
         {form.word}
         {form.pronounce && (
           <Typography fontSize={14} variant="subtitle1" component="span">
@@ -38,19 +38,33 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
           <Typography
             fontSize={14}
             variant="subtitle1"
-            component="span"
-            sx={{ display: "block" }}
+            component="label"
+            sx={{ display: "block", lineHeight: 1.2 }}
           >
             {form.spanish}
           </Typography>
         )}
-        {typesWord.map((type, key) => (
-          <ChipCustomType
-            key={key}
-            type={type}
-            sx={{ ml: key === 0 ? 0 : "5px", fontSize: 9 }}
-          />
-        ))}
+        <Box
+          component="span"
+          sx={{
+            display: "flex",
+            gap: "3px 5px",
+            flexWrap: "wrap",
+            mt: "5px",
+          }}
+        >
+          {typesWord.map((type, key) => (
+            <ChipCustomType
+              key={key}
+              type={type}
+              sx={{
+                fontSize: 7,
+                minWidth: 50,
+                textAlign: "center",
+              }}
+            />
+          ))}
+        </Box>
       </>
     );
   };
@@ -58,14 +72,26 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   return (
     <>
       <ListItem disablePadding {...others}>
-        <ListItemAvatar>
+        <ListItemAvatar
+          sx={{
+            px: 0,
+            mx: 0,
+          }}
+        >
           <Avatar
-            alt="Travis Howard"
+            alt={form.word}
             src={form.image.trim() ? form.image : sinImagen}
             variant="square"
+            sx={{
+              px: 0,
+              mx: 0,
+            }}
           />
         </ListItemAvatar>
-        <ListItemText primary={getTitle()} secondary={getSecondary()} />
+        <ListItemText>
+          {getTitle()}
+          {getSecondary()}
+        </ListItemText>
 
         {typeof openView === "function" && (
           <ListItemIcon sx={{ minWidth: 36 }}>
@@ -87,7 +113,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
           </ListItemIcon>
         )}
       </ListItem>
-      <Divider />
+      {/* <Divider /> */}
     </>
   );
 };

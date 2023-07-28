@@ -4,10 +4,10 @@ import { Button, Dialog, Grid, Slide } from "@mui/material";
 import { PostAddOutlined } from "@mui/icons-material";
 import TopBar from "./Components/TopBar";
 import Form from "./Components/Form";
-import formInit from "../../dataSturcture/word";
-import ordenarAsc from "../../Functions/ordenarAsc";
-import getVocabularyData from "../../Functions/getVocabularyData";
-import saveVocabularyData from "../../Functions/saveVocabularyData";
+import formInit from "../../../../dataSturcture/word";
+import ordenarAsc from "../../../../Functions/ordenarAsc";
+import getVocabularyData from "../../../../Functions/getVocabularyData";
+import saveVocabularyData from "../../../../Functions/saveVocabularyData";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

@@ -10,15 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 import { MoreVertOutlined, Search } from "@mui/icons-material";
-import CustomListItem from "../Components/VocabularyListItem";
-import ModalAdd from "../Sections/Modal/ModalAdd";
-import ModalEdit from "../Sections/Modal/ModalEdit";
-
-import formInit from "../dataSturcture/word";
-import DrawerVocabulary from "../Sections/DrawerVocabulary";
-import getVocabularyData from "../Functions/getVocabularyData";
-import saveVocabularyData from "../Functions/saveVocabularyData";
-import ModalView from "../Sections/Modal/ModalView";
+import CustomListItem from "./Components/VocabularyListItem";
+import ModalAdd from "./Sections/Modal/ModalAdd";
+import ModalEdit from "./Sections/Modal/ModalEdit";
+import ModalView from "./Sections/Modal/ModalView";
+import DrawerVocabulary from "./Sections/DrawerVocabulary";
+import getVocabularyData from "../../Functions/getVocabularyData";
+import saveVocabularyData from "../../Functions/saveVocabularyData";
+import formInit from "../../dataSturcture/word";
 
 function Vocabulary() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
@@ -158,9 +157,12 @@ function Vocabulary() {
                   openViewWord(form);
                 }}
                 sx={{
-                  bgcolor: key % 2 == 0 ? "#eee" : "#fff",
-                  px: 2,
+                  bgcolor: key % 2 === 0 ? "#ededed8a" : "#fff",
                   minHeight: 60,
+                  pr: 0,
+                  pl: 1,
+                  pb: "4px",
+                  border: "1px solid #ededed8a",
                 }}
               />
             ))}

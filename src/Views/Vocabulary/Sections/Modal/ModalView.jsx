@@ -11,9 +11,9 @@ import {
   Dialog,
   Typography,
 } from "@mui/material";
-import getTypesWord from "../../Functions/getTypesWord";
+import getTypesWord from "../../../../Functions/getTypesWord";
+import sinImagen from "../../../../assets/no-disponible.png";
 import ChipCustomType from "../../Components/ChipCustomType";
-import sinImagen from "../../assets/no-disponible.png";
 
 const ModalView = ({ open, setOpen, form }) => {
   const handleClose = () => {
@@ -37,7 +37,6 @@ const ModalView = ({ open, setOpen, form }) => {
                     fontSize={20}
                     variant="subtitle1"
                     component="span"
-                    // sx={{ fontStyle: "italic" }}
                   >
                     {" / " + form.pronounce}
                   </Typography>
@@ -66,13 +65,24 @@ const ModalView = ({ open, setOpen, form }) => {
             />
           </Box>
           <CardContent>
-            {getTypes().map((type, key) => (
-              <ChipCustomType
-                key={key}
-                type={type}
-                sx={{ ml: key == 0 ? "0" : "4px" }}
-              />
-            ))}
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                flexDirection: "row",
+                textAlign: "center",
+                justifyContent: "end",
+              }}
+            >
+              {getTypes().map((type, key) => (
+                <ChipCustomType
+                  key={key}
+                  type={type}
+                  sx={{ minWidth: "22%" }}
+                />
+              ))}
+            </Box>
 
             <Typography
               variant="body2"

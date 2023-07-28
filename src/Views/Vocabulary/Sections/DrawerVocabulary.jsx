@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -11,8 +11,8 @@ import {
   ListItemText,
 } from "@mui/material";
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
-import getVocabularyData from "../Functions/getVocabularyData";
-import saveVocabularyData from "../Functions/saveVocabularyData";
+import getVocabularyData from "../../../Functions/getVocabularyData";
+import saveVocabularyData from "../../../Functions/saveVocabularyData";
 
 const DrawerVocabulary = ({ open, setOpen }) => {
   const closeDrawer = () => {
