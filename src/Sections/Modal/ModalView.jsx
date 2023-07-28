@@ -28,11 +28,27 @@ const ModalView = ({ open, setOpen, form }) => {
     <>
       <Dialog open={open} onClose={handleClose}>
         <Card sx={{ maxWidth: 345 }}>
-          <CardHeader title={form.word} subheader={form.spanish} />
+          <CardHeader
+            title={
+              <>
+                {form.word}
+                {form.pronounce && (
+                  <Typography
+                    fontSize={20}
+                    variant="subtitle1"
+                    component="span"
+                    // sx={{ fontStyle: "italic" }}
+                  >
+                    {" (" + form.pronounce + ")"}
+                  </Typography>
+                )}
+              </>
+            }
+            subheader={form.spanish}
+          />
           <Box
             sx={{
               minWidth: "300px",
-              // height: "300px",
               position: "relative",
               bgcolor: "#eee",
             }}
@@ -44,7 +60,6 @@ const ModalView = ({ open, setOpen, form }) => {
               sx={{
                 height: "auto",
                 width: "100%",
-                // objectFit: form.image == "" ? "cover" : "scale-down",
                 objectFit: "cover",
                 aspectRatio: "2/1.7",
               }}
@@ -59,6 +74,20 @@ const ModalView = ({ open, setOpen, form }) => {
                 sx={{ ml: key == 0 ? "0" : "4px" }}
               />
             ))}
+
+            <Typography
+              variant="body2"
+              component="pre"
+              sx={{
+                mt: 2,
+                py: "3px",
+                px: "5px",
+                borderRadius: "5px",
+                color: "#606060",
+              }}
+            >
+              {form.comment ? form.comment : "No comment."}
+            </Typography>
           </CardContent>
 
           <CardActions

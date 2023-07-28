@@ -20,9 +20,14 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
     return (
       <Typography fontSize={14} variant="subtitle2">
         {form.word}
-        {form.spanish !== "" && (
-          <Typography fontSize={14} variant="subtitle1" component="span">
-            {" - " + form.spanish}
+        {form.pronounce && (
+          <Typography
+            fontSize={14}
+            variant="subtitle1"
+            component="span"
+            // sx={{ fontStyle: "italic" }}
+          >
+            {" / " + form.pronounce + ""}
           </Typography>
         )}
       </Typography>
@@ -35,19 +40,19 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
     return (
       <>
         <Box>
+          {form.spanish && (
+            <Typography fontSize={14} variant="subtitle1" component="span">
+              {form.spanish}
+            </Typography>
+          )}
           {typesWord.map((type, key) => (
             <ChipCustomType
               key={key}
               type={type}
-              sx={{ ml: key == 0 ? "0" : "4px", fontSize: 9 }}
+              sx={{ ml: "5px", fontSize: 9 }}
             />
           ))}
         </Box>
-        {form.comment != "" && (
-          <Typography fontSize={10} variant="subtitle1" component="small">
-            {form.comment}
-          </Typography>
-        )}
       </>
     );
   };
@@ -58,7 +63,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
         <ListItemAvatar>
           <Avatar
             alt="Travis Howard"
-            src={form.image.trim() != "" ? form.image : sinImagen}
+            src={form.image.trim() ? form.image : sinImagen}
             variant="square"
           />
         </ListItemAvatar>

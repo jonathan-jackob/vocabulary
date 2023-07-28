@@ -26,6 +26,10 @@ const ModalAdd = ({ open, setOpen }) => {
 
   const saveWord = () => {
     let jsonVocabulary = getVocabularyData();
+    if (formState.word.trim() === "") {
+      alert("Require a word.");
+      return false;
+    }
 
     jsonVocabulary.push({
       id: Date.now(),
