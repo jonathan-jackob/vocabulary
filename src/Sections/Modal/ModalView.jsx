@@ -38,7 +38,7 @@ export default function ModalView() {
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              lkdwe
+              lkdwe jhhbjhjbbkbkhj
             </Typography>
           </CardContent>
 
