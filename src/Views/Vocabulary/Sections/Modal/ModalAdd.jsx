@@ -2,18 +2,18 @@ import React, { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Dialog, Grid, Slide } from "@mui/material";
 import { PostAddOutlined } from "@mui/icons-material";
-import TopBar from "./Components/TopBar";
-import Form from "./Components/Form";
-import formInit from "../../../../dataSturcture/word";
-import ordenarAsc from "../../../../Functions/ordenarAsc";
-import getVocabularyData from "../../../../Functions/getVocabularyData";
-import saveVocabularyData from "../../../../Functions/saveVocabularyData";
+import TopBar from "@Components/Vocabulary/Modal/TopBar";
+import Form from "@Components/Vocabulary/Modal/Form";
+import formInit from "@Data/word";
+import ordenarAsc from "@Functions/ordenarAsc";
+import getVocabularyData from "@Functions/getVocabularyData";
+import saveVocabularyData from "@Functions/saveVocabularyData";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ModalAdd = ({ open, setOpen }) => {
+const ModalAdd = ({ open, setOpen, refresh }) => {
   const [formState, setFormState] = useState(formInit);
 
   const handleClickOpen = () => {
@@ -40,6 +40,7 @@ const ModalAdd = ({ open, setOpen }) => {
     setFormState(formInit); // limpieza de formulario
     saveVocabularyData(jsonVocabulary);
     handleClose();
+    refresh();
   };
 
   return (
@@ -92,6 +93,11 @@ const ModalAdd = ({ open, setOpen }) => {
 ModalAdd.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+};
+
+ModalAdd.defaultProps = {
+  refresh: () => {},
 };
 
 export default ModalAdd;

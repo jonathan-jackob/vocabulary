@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Typography } from "@mui/material";
-import TypesColors from "../../../Theme/TypesColors";
+import TypesColors from "../../Theme/TypesColors";
 
 const ChipCustomType = ({ type, sx }) => {
   const color = TypesColors[type].main;

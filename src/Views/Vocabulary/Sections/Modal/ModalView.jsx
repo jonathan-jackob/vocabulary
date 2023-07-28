@@ -11,9 +11,9 @@ import {
   Dialog,
   Typography,
 } from "@mui/material";
-import getTypesWord from "../../../../Functions/getTypesWord";
-import sinImagen from "../../../../assets/no-disponible.png";
-import ChipCustomType from "../../Components/ChipCustomType";
+import getTypesWord from "@Functions/getTypesWord";
+import sinImagen from "@Assets/no-disponible.png";
+import ChipCustomType from "@Components/Vocabulary/ChipCustomType";
 
 const ModalView = ({ open, setOpen, form }) => {
   const handleClose = () => {

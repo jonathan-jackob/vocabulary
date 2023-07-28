@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  Container,
   Grid,
   IconButton,
   InputAdornment,
-  List,
   TextField,
   Typography,
 } from "@mui/material";
 import { MoreVertOutlined, Search } from "@mui/icons-material";
-import CustomListItem from "./Components/VocabularyListItem";
 import ModalAdd from "./Sections/Modal/ModalAdd";
-import ModalEdit from "./Sections/Modal/ModalEdit";
-import ModalView from "./Sections/Modal/ModalView";
 import DrawerVocabulary from "./Sections/DrawerVocabulary";
-import getVocabularyData from "../../Functions/getVocabularyData";
-import saveVocabularyData from "../../Functions/saveVocabularyData";
-import formInit from "../../dataSturcture/word";
+import getVocabularyData from "@Functions/getVocabularyData";
+import ListItems from "./Sections/ListItems";
 
 function Vocabulary() {
-  const [openModalAdd, setOpenModalAdd] = useState(false);
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [openModaView, setOpenModaView] = useState(false);
   const [dataVocabulary, setDataVocabulary] = useState([]);
-  const [dataModalEditView, setDataModalEditView] = useState(formInit);
+  const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [freshData, setFreshData] = useState(false);
   const [searchWord, setSearchWord] = useState("");
 
   useEffect(() => {
@@ -43,27 +35,10 @@ function Vocabulary() {
         );
       }
     }
-  }, [openModalAdd, openModalEdit, openDrawer, searchWord]);
+  }, [freshData, searchWord]);
 
-  const deleteRegistry = (id) => {
-    let jsonVocabulary = getVocabularyData();
-    const filter = jsonVocabulary.filter((item) => {
-      return item.id !== id;
-    });
-
-    setDataVocabulary(filter);
-
-    saveVocabularyData(filter);
-  };
-
-  const openEditWord = (form) => {
-    setDataModalEditView(form);
-    setOpenModalEdit(true);
-  };
-
-  const openViewWord = (form) => {
-    setDataModalEditView(form);
-    setOpenModaView(true);
+  const refresh = () => {
+    setFreshData((value) => !value);
   };
 
   return (
@@ -136,52 +111,19 @@ function Vocabulary() {
             />
           </Grid>
           <Grid item xs={4} md={2}>
-            <ModalAdd open={openModalAdd} setOpen={setOpenModalAdd} />
+            <ModalAdd
+              open={openModalAdd}
+              setOpen={setOpenModalAdd}
+              refresh={refresh}
+            />
           </Grid>
         </Grid>
       </Box>
-      <Container
-        maxWidth={false}
-        sx={{ pb: 7, height: "100%", position: "relative" }}
-      >
-        <Box sx={{ mt: 2 }}>
-          <List>
-            {dataVocabulary.map((form, key) => (
-              <CustomListItem
-                key={form.id}
-                form={form}
-                openEdit={() => {
-                  openEditWord(form);
-                }}
-                openView={() => {
-                  openViewWord(form);
-                }}
-                sx={{
-                  bgcolor: key % 2 === 0 ? "#ededed8a" : "#fff",
-                  minHeight: 60,
-                  pr: 0,
-                  pl: 1,
-                  pb: "4px",
-                  border: "1px solid #ededed8a",
-                }}
-              />
-            ))}
-          </List>
-        </Box>
-
-        <ModalEdit
-          open={openModalEdit}
-          setOpen={setOpenModalEdit}
-          form={dataModalEditView}
-          setForm={setDataModalEditView}
-          deleteRegistry={deleteRegistry}
-        />
-        <ModalView
-          open={openModaView}
-          setOpen={setOpenModaView}
-          form={dataModalEditView}
-        />
-      </Container>
+      <ListItems
+        dataVocabulary={dataVocabulary}
+        setDataVocabulary={setDataVocabulary}
+        refresh={refresh}
+      />
     </>
   );
 }

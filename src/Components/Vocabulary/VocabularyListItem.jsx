@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { EditOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
-import getTypesWord from "../../../Functions/getTypesWord";
-import sinImagen from "../../../assets/no-disponible.png";
+import getTypesWord from "@Functions/getTypesWord";
+import sinImagen from "@Assets/no-disponible.png";
 import ChipCustomType from "./ChipCustomType";
 
 const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {

@@ -11,8 +11,8 @@ import {
   ListItemText,
 } from "@mui/material";
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
-import getVocabularyData from "../../../Functions/getVocabularyData";
-import saveVocabularyData from "../../../Functions/saveVocabularyData";
+import getVocabularyData from "@Functions/getVocabularyData";
+import saveVocabularyData from "@Functions/saveVocabularyData";
 
 const DrawerVocabulary = ({ open, setOpen }) => {
   const closeDrawer = () => {
