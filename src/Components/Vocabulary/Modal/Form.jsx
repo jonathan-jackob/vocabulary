@@ -16,9 +16,9 @@ const Form = ({ form, buttons }) => {
   return (
     <Container sx={{ py: 2 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
-            label="Word"
+            label="Word or Phrase"
             variant="standard"
             value={form.getWord()}
             onChange={(event) => {
@@ -28,19 +28,7 @@ const Form = ({ form, buttons }) => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            label="Spanish"
-            variant="standard"
-            value={form.getSpanish()}
-            onChange={(event) => {
-              form.setSpanish(event.target.value);
-            }}
-            fullWidth
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
             label="Pronounce"
             variant="standard"
@@ -52,22 +40,37 @@ const Form = ({ form, buttons }) => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
-            label="URL Image"
+            label="Spanish"
+            variant="standard"
+            value={form.getSpanish()}
+            onChange={(event) => {
+              form.setSpanish(event.target.value);
+            }}
+            fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Types form={form} />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Examples form={form} />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            label="Image"
             variant="standard"
             value={form.getImage()}
             onChange={(event) => {
               form.setImage(event.target.value);
             }}
             fullWidth
+            placeholder="Example: https://images.com/sun.jpg"
           />
-        </Grid>
-
-        <Examples form={form} />
-
-        <Grid item xs={12}>
-          <Types form={form} />
         </Grid>
 
         <Grid item xs={12}>
@@ -79,12 +82,11 @@ const Form = ({ form, buttons }) => {
               form.setComment(event.target.value);
             }}
             fullWidth
-            multiline
           />
         </Grid>
         <Grid item xs={12} sx={{ my: 2 }}>
           <Typography component="label">Preview</Typography>
-          <List sx={{ px: 1 }} component={Paper}>
+          <List sx={{ px: 1, mt: 1 }} component={Paper}>
             <VocabularyListItem form={form.data} />
           </List>
         </Grid>

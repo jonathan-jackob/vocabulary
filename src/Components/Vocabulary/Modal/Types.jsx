@@ -2,76 +2,54 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   Checkbox,
+  Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import CapitalLetter from "@Functions/CapitalLetter";
 
 const Types = ({ form }) => {
   const handleChange = (event) => {
     form.setType(event.target.name, event.target.checked);
   };
 
+  const getArrayTypes = (types) => {
+    let array = Object.keys(types);
+    array.sort((a, b) => a.localeCompare(b));
+    return array;
+  };
+
   return (
     <FormControl sx={{ mt: 2 }}>
       <FormLabel component="legend">Check the type</FormLabel>
       <Box>
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="noun"
-              checked={form.getType("noun")}
-              onChange={handleChange}
-              color="noun"
-            />
-          }
-          label="Noun"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="verb"
-              checked={form.getType("verb")}
-              onChange={handleChange}
-              color="verb"
-            />
-          }
-          label="Verb"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="adjetive"
-              checked={form.getType("adjetive")}
-              onChange={handleChange}
-              color="adjetive"
-            />
-          }
-          label="Adjetive"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="preposition"
-              checked={form.getType("preposition")}
-              onChange={handleChange}
-              color="preposition"
-            />
-          }
-          label="Preposition"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="adverb"
-              checked={form.getType("adverb")}
-              onChange={handleChange}
-              color="adverb"
-            />
-          }
-          label="Adverb"
-        />
+        {getArrayTypes(form.getTypes()).map((type) => (
+          <FormControlLabel
+            key={type}
+            control={
+              <Checkbox
+                name={type}
+                checked={form.getType(type)}
+                onChange={handleChange}
+                color={type}
+              />
+            }
+            label={
+              <Typography
+                component="span"
+                sx={{
+                  color: form.getType(type) ? type + ".main" : "inherit",
+                  fontWeight: 500,
+                }}
+              >
+                {CapitalLetter(type)}
+              </Typography>
+            }
+          />
+        ))}
       </Box>
     </FormControl>
   );

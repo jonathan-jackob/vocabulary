@@ -17,10 +17,20 @@ import ChipCustomType from "./ChipCustomType";
 const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   const getTitle = () => {
     return (
-      <Typography fontSize={14} variant="subtitle2" component="label">
+      <Typography
+        fontSize={14}
+        variant="subtitle2"
+        component="label"
+        sx={{ cursor: "pointer" }}
+      >
         {form.word}
         {form.pronounce && (
-          <Typography fontSize={14} variant="subtitle1" component="span">
+          <Typography
+            fontSize={14}
+            variant="subtitle1"
+            component="span"
+            sx={{ cursor: "pointer" }}
+          >
             {" / " + form.pronounce + ""}
           </Typography>
         )}
@@ -38,7 +48,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
             fontSize={14}
             variant="subtitle1"
             component="label"
-            sx={{ display: "block", lineHeight: 1.2 }}
+            sx={{ display: "block", lineHeight: 1.2, cursor: "pointer" }}
           >
             {form.spanish}
           </Typography>
@@ -85,10 +95,11 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
             sx={{
               px: 0,
               mx: 0,
+              cursor: "pointer",
             }}
           />
         </ListItemAvatar>
-        <ListItemText onClick={openView}>
+        <ListItemText onClick={openView} sx={{ cursor: "pointer" }}>
           {getTitle()}
           {getSecondary()}
         </ListItemText>

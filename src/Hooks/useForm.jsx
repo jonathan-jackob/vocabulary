@@ -10,11 +10,13 @@ const useForm = () => {
     pronounce: "",
     examples: [""],
     types: {
-      noun: false,
-      verb: false,
+      /**si se agrega otro type, agregar color @see src/Theme/TypesColors.jsx */
       adjetive: false,
-      preposition: false,
       adverb: false,
+      noun: false,
+      preposition: false,
+      verb: false,
+      word: false,
     },
     image: "",
     comment: "",
@@ -29,6 +31,7 @@ const useForm = () => {
   const getImage = () => data.image;
   const getComment = () => data.comment;
   const getType = (type) => data.types[type];
+  const getTypes = (type) => data.types;
   const getExample = (key) => data.examples[key];
   const getExamples = () => data.examples;
 
@@ -51,22 +54,10 @@ const useForm = () => {
     setData({ ...data, comment: value });
   };
   const setType = (type, value) => {
-    switch (type) {
-      case "noun":
-        setData({ ...data, types: { ...data.types, noun: value } });
-        break;
-      case "verb":
-        setData({ ...data, types: { ...data.types, verb: value } });
-        break;
-      case "adjetive":
-        setData({ ...data, types: { ...data.types, adjetive: value } });
-        break;
-      case "preposition":
-        setData({ ...data, types: { ...data.types, preposition: value } });
-        break;
-      case "adverb":
-        setData({ ...data, types: { ...data.types, adverb: value } });
-        break;
+    if (type in data.types) {
+      let objTempo = {};
+      objTempo[type] = value;
+      setData({ ...data, types: { ...data.types, ...objTempo } });
     }
   };
 
@@ -174,6 +165,7 @@ const useForm = () => {
     getId,
     getImage,
     getType,
+    getTypes,
     getPronounce,
     getSpanish,
     getWord,

@@ -1,20 +1,30 @@
-import { blue, green, indigo, orange, purple } from "@mui/material/colors";
+import {
+  blue,
+  cyan,
+  green,
+  indigo,
+  orange,
+  purple,
+} from "@mui/material/colors";
 
 const TypesColors = {
-  noun: {
-    main: green[800],
-  },
-  verb: {
-    main: blue[800],
-  },
   adjetive: {
-    main: purple[800],
-  },
-  preposition: {
-    main: orange[800],
+    main: purple[700],
   },
   adverb: {
-    main: indigo[800],
+    main: indigo[700],
+  },
+  noun: {
+    main: green[700],
+  },
+  preposition: {
+    main: orange[700],
+  },
+  verb: {
+    main: blue[700],
+  },
+  word: {
+    main: cyan[700],
   },
 };
 
