@@ -14,32 +14,32 @@ const WPAConfig = ()=>{
           name: "Vocabulary App",
           icons: [
             {
-              src: "/vocabulary/vaap128.webp",
+              src: "/vocabulary/vap_128.webp",
               sizes: "128x128",
               type: "image/webp",
             },
             {
-              src: "/vocabulary/vaap144.webp",
+              src: "/vocabulary/vap_144.webp",
               sizes: "144x144",
               type: "image/webp",
             },
             {
-              src: "/vocabulary/vaap192.webp",
+              src: "/vocabulary/vap_192.webp",
               sizes: "192x192",
               type: "image/webp",
             },
             {
-              src: "/vocabulary/vaap256.webp",
+              src: "/vocabulary/vap_256.webp",
               sizes: "256x256",
               type: "image/webp",
             },
             {
-              src: "/vocabulary/vaap512.webp",
+              src: "/vocabulary/vap_512.webp",
               sizes: "512x512",
               type: "image/webp",
             },
             {
-              src: "/vocabulary/vaap1024.webp",
+              src: "/vocabulary/vap_1024.webp",
               sizes: "1024x1024",
               type: "image/webp",
             },
