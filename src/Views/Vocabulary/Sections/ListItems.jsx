@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { Box, Container, Divider, List } from "@mui/material";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalView from "./Modal/ModalView";
-import CustomListItem from "@Components/Vocabulary/VocabularyListItem";
-import useForm from "@Hooks/useForm";
+import useForm from "../../../Hooks/useForm";
 import useOpen from "../../../Hooks/useOpen";
+import VocabularyListItem from "../../../Components/Vocabulary/VocabularyListItem";
 
 const ListItems = ({ dataVocabulary, refresh }) => {
   const modalEditOpen = useOpen();
@@ -50,7 +50,7 @@ const ListItems = ({ dataVocabulary, refresh }) => {
                   {form.word.charAt(0).toUpperCase()}
                 </Divider>
               )}
-              <CustomListItem
+              <VocabularyListItem
                 key={form.id}
                 form={form}
                 openEdit={() => {

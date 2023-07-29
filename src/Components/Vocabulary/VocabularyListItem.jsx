@@ -10,9 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import { BorderColor } from "@mui/icons-material";
-import getTypesWord from "@Functions/getTypesWord";
-import sinImagen from "@Assets/no-image.png";
+import sinImagen from "../../Assets/no-image.png";
 import ChipCustomType from "./ChipCustomType";
+import getTypesWord from "../../Functions/getTypesWord";
 
 const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   const getTitle = () => {

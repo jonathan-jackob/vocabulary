@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import ordenarAsc from "@Functions/ordenarAsc";
 import useVocabulary from "./useVocabulary";
+import ordenarAsc from "../Functions/ordenarAsc";
+import { formLabelClasses } from "@mui/material";
 
 const useForm = () => {
   const formInit = {
@@ -24,6 +25,7 @@ const useForm = () => {
   const vocabulary = useVocabulary();
   const [data, setData] = useState(formInit);
 
+  // getters
   const getId = () => data.id;
   const getWord = () => data.word;
   const getSpanish = () => data.spanish;
@@ -36,7 +38,7 @@ const useForm = () => {
   };
   const getExample = (key) => data.examples[key];
   const getExamples = () => data.examples;
-
+  // setters
   const setId = (value) => {
     setData({ ...data, id: value });
   };
@@ -63,8 +65,13 @@ const useForm = () => {
     }
   };
 
+  // functions
   const setAllData = (data) => {
-    setData({ ...formInit, ...data });
+    const types =
+      typeof data.types == "object"
+        ? { ...formInit.types, ...data.types }
+        : { ...formInit.types };
+    setData({ ...formInit, ...data, types });
   };
 
   const editExample = (example, key) => {
@@ -73,6 +80,7 @@ const useForm = () => {
 
     setData({
       ...data,
+      /**los examples siempre deben contener un elemento vacío, se filtra y se eliminan todos y se agrega uno al final */
       examples: [...examples.filter((item) => item.trim() !== ""), ""],
     });
   };
@@ -86,6 +94,7 @@ const useForm = () => {
     success: true,
     message: "",
   });
+
   const responseError = (message = "Error") => ({
     error: true,
     success: false,
@@ -95,6 +104,7 @@ const useForm = () => {
   const clean = () => {
     setData(formInit);
   };
+
   const formValidate = () => {
     if (data.word.trim() === "") {
       return responseError("Se requiere agregar una palabra.");
@@ -110,7 +120,7 @@ const useForm = () => {
       return errors;
     }
 
-    let jsonTempo = vocabulary.getVocabulary(); // recuperamos informacion de local
+    let jsonTempo = vocabulary.getVocabulary(); // recuperamos información de local
     let jsonVocabulary = jsonTempo.map((form) =>
       data.id == form.id ? data : form
     );

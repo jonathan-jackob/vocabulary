@@ -5,7 +5,7 @@ import DrawerVocabulary from "./Sections/DrawerVocabulary";
 import ListItems from "./Sections/ListItems";
 import ModalAdd from "./Sections/Modal/ModalAdd";
 import SearchVocabulary from "./Sections/SearchVocabulary";
-import useVocabulary from "@Hooks/useVocabulary";
+import useVocabulary from "../../Hooks/useVocabulary";
 import useOpen from "../../Hooks/useOpen";
 
 function Vocabulary() {

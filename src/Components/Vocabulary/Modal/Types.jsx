@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import CapitalLetter from "@Functions/CapitalLetter";
+import CapitalLetter from "../../../Functions/CapitalLetter";
 
 const Types = ({ form }) => {
   const handleChange = (event) => {

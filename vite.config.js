@@ -8,5 +8,4 @@ import namespaces from "./namespaces.config";
 export default defineConfig({
   plugins: [react(), VitePWA(WPAConfig())],
   base: "/vocabulary/",
-  resolve: namespaces()
 });

@@ -1,10 +1,10 @@
-import { teal } from "@mui/material/colors";
+import { grey, teal } from "@mui/material/colors";
 
 const WPAConfig = ()=>{
     return {
         manifest: {
           theme_color: teal[600],
-          background_color: teal[400],
+          background_color: grey[100],
           display: "standalone",
           scope: "/vocabulary/",
           start_url: "/vocabulary/",

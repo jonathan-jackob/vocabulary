@@ -11,7 +11,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
-import useVocabulary from "@Hooks/useVocabulary";
+import useVocabulary from "../../../Hooks/useVocabulary";
 
 const DrawerVocabulary = ({ status, close, refresh }) => {
   const vocabulary = useVocabulary();
