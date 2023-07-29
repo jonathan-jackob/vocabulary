@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { EditOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
 import getTypesWord from "@Functions/getTypesWord";
-import sinImagen from "@Assets/no-disponible.png";
+import sinImagen from "@Assets/no-image.png";
 import ChipCustomType from "./ChipCustomType";
 
 const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
@@ -58,7 +58,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
               type={type}
               sx={{
                 fontSize: 7,
-                minWidth: 50,
+                minWidth: 55,
                 textAlign: "center",
               }}
             />
@@ -78,6 +78,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
           }}
         >
           <Avatar
+            onClick={openView}
             alt={form.word}
             src={form.image.trim() ? form.image : sinImagen}
             variant="square"
@@ -87,12 +88,12 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
             }}
           />
         </ListItemAvatar>
-        <ListItemText>
+        <ListItemText onClick={openView}>
           {getTitle()}
           {getSecondary()}
         </ListItemText>
 
-        {typeof openView === "function" && (
+        {/* {typeof openView === "function" && (
           <ListItemIcon sx={{ minWidth: 36 }}>
             <RemoveRedEyeOutlined
               onClick={openView}
@@ -100,7 +101,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
               color="success"
             />
           </ListItemIcon>
-        )}
+        )} */}
 
         {typeof openEdit === "function" && (
           <ListItemIcon sx={{ minWidth: 36, ml: 1 }}>
@@ -112,7 +113,6 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
           </ListItemIcon>
         )}
       </ListItem>
-      {/* <Divider /> */}
     </>
   );
 };

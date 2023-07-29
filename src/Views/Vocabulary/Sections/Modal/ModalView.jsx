@@ -17,7 +17,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import getTypesWord from "@Functions/getTypesWord";
-import sinImagen from "@Assets/no-disponible.png";
+import sinImagen from "@Assets/no-image.png";
 import ChipCustomType from "@Components/Vocabulary/ChipCustomType";
 import DialogContent from "@mui/material/DialogContent";
 
@@ -49,11 +49,12 @@ const ModalView = ({ open, setOpen, form }) => {
         />
         <DialogContent sx={{ p: 0 }}>
           <Card sx={{ maxWidth: 345 }}>
-            <Box
+            <Paper
               sx={{
                 minWidth: "300px",
                 position: "relative",
                 bgcolor: "#eee",
+                borderRadius: 0,
               }}
             >
               <CardMedia
@@ -63,11 +64,12 @@ const ModalView = ({ open, setOpen, form }) => {
                 sx={{
                   height: "auto",
                   width: "100%",
-                  objectFit: "cover",
-                  aspectRatio: "2/1.5",
+                  objectFit: form.image == "" ? "scale-down" : "cover",
+                  aspectRatio: "2/1.7",
+                  borderRadius: 0,
                 }}
               />
-            </Box>
+            </Paper>
 
             <CardContent>
               <Box
@@ -137,7 +139,7 @@ const ModalView = ({ open, setOpen, form }) => {
                   overflow: "auto",
                 }}
               >
-                {form.comment ? form.comment : "No comment."}
+                {form.comment ? form.comment : ""}
               </Typography>
             </CardContent>
           </Card>

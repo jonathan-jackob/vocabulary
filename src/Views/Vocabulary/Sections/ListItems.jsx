@@ -4,7 +4,6 @@ import { Box, Container, Divider, List } from "@mui/material";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalView from "./Modal/ModalView";
 import CustomListItem from "@Components/Vocabulary/VocabularyListItem";
-import useVocabulary from "@Hooks/useVocabulary";
 import useForm from "@Hooks/useForm";
 
 const ListItems = ({ dataVocabulary, refresh }) => {
@@ -44,7 +43,7 @@ const ListItems = ({ dataVocabulary, refresh }) => {
                 dataVocabulary[key].word.charAt(0) !==
                   dataVocabulary[key - 1].word.charAt(0)) && (
                 <Divider
-                  textAlign="right"
+                  textAlign="left"
                   sx={{ color: "#aaa", fontSize: 12, fontWeight: 700, my: 1 }}
                 >
                   {form.word.charAt(0).toUpperCase()}
