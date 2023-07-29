@@ -1,42 +1,38 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { MoreVertOutlined, Search } from "@mui/icons-material";
-import ModalAdd from "./Sections/Modal/ModalAdd";
+import { Button, Grid, IconButton, Typography } from "@mui/material";
+import { MoreVertOutlined, PostAddOutlined } from "@mui/icons-material";
 import DrawerVocabulary from "./Sections/DrawerVocabulary";
 import ListItems from "./Sections/ListItems";
+import ModalAdd from "./Sections/Modal/ModalAdd";
+import SearchVocabulary from "./Sections/SearchVocabulary";
 import useVocabulary from "@Hooks/useVocabulary";
+import useOpen from "../../Hooks/useOpen";
 
 function Vocabulary() {
+  const modalAddOpen = useOpen();
+  const drawerOpen = useOpen();
   const [dataVocabulary, setDataVocabulary] = useState([]);
-  const [openModalAdd, setOpenModalAdd] = useState(false);
-  const [openDrawer, setOpenDrawer] = useState(false);
   const [freshData, setFreshData] = useState(false);
   const [searchWord, setSearchWord] = useState("");
+  const [filter, setFilter] = useState("all");
   const vocabulary = useVocabulary();
 
   useEffect(() => {
-    if (!openModalAdd) {
-      const objData = vocabulary.getVocabulary();
-      if (searchWord.trim() == "") {
-        setDataVocabulary(objData);
-      } else {
-        setDataVocabulary(
-          objData.filter((item) => {
-            const word = String(item.word).toLowerCase();
-            const search = searchWord.trim().toLowerCase();
-            return word.includes(search);
-          })
-        );
-      }
+    let objData = vocabulary.getVocabulary();
+
+    if (filter !== "all") {
+      objData = objData.filter((item) => item.types[filter]);
     }
-  }, [freshData, searchWord]);
+
+    if (searchWord.trim() !== "") {
+      objData = objData.filter((item) => {
+        const word = String(item.word).toLowerCase();
+        const search = searchWord.trim().toLowerCase();
+        return word.includes(search);
+      });
+    }
+    setDataVocabulary(objData);
+  }, [freshData, modalAddOpen.status, searchWord, filter]);
 
   const refresh = () => {
     setFreshData((value) => !value);
@@ -66,66 +62,56 @@ function Vocabulary() {
             bottom: 0,
             color: "light.main",
           }}
-          onClick={() => {
-            setOpenDrawer(true);
-          }}
+          onClick={drawerOpen.open}
         >
           <MoreVertOutlined />
         </IconButton>
-        <DrawerVocabulary open={openDrawer} setOpen={setOpenDrawer} />
+        <DrawerVocabulary
+          status={drawerOpen.status}
+          close={drawerOpen.close}
+          refresh={refresh}
+        />
       </Typography>
-      <Box
-        sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1,
-          bgcolor: "#fff",
-          boxShadow: "0px 3px 10px 0px rgba(0,0,0,.5)",
-        }}
-      >
-        <Grid
-          container
-          justifyContent="space-between"
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          sx={{ p: 1 }}
-        >
-          <Grid item xs={8} md={10}>
-            <TextField
-              label="Search"
-              variant="outlined"
-              size="small"
-              type="search"
-              value={searchWord}
-              onChange={(event) => {
-                setSearchWord(event.target.value);
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
-              }}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={4} md={2}>
-            <ModalAdd
-              open={openModalAdd}
-              setOpen={setOpenModalAdd}
-              refresh={refresh}
-            />
-          </Grid>
-        </Grid>
-      </Box>
+
+      <SearchVocabulary
+        searchWord={searchWord}
+        setSearchWord={setSearchWord}
+        filter={filter}
+        setFilter={setFilter}
+      />
 
       <ListItems
         dataVocabulary={dataVocabulary}
         setDataVocabulary={setDataVocabulary}
         refresh={refresh}
       />
+
+      <Button
+        aria-label="add word"
+        sx={{
+          position: "fixed",
+          bottom: 35,
+          right: 15,
+          zIndex: 1,
+          p: 0,
+          minWidth: 44,
+          minHeight: 44,
+          borderRadius: "50%",
+        }}
+        color="primary"
+        variant="contained"
+        onClick={modalAddOpen.open}
+      >
+        <PostAddOutlined />
+      </Button>
+
+      <Grid item xs={4} md={2}>
+        <ModalAdd
+          status={modalAddOpen.status}
+          close={modalAddOpen.close}
+          refresh={refresh}
+        />
+      </Grid>
     </>
   );
 }

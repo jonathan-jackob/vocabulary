@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Box, Container, Divider, List } from "@mui/material";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalView from "./Modal/ModalView";
 import CustomListItem from "@Components/Vocabulary/VocabularyListItem";
 import useForm from "@Hooks/useForm";
+import useOpen from "../../../Hooks/useOpen";
 
 const ListItems = ({ dataVocabulary, refresh }) => {
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [openModaView, setOpenModaView] = useState(false);
+  const modalEditOpen = useOpen();
+  const modalViewOpen = useOpen();
   const Formulario = useForm();
 
   const openEditWord = (form) => {
     Formulario.setAllData(form);
-    setOpenModalEdit(true);
+    modalEditOpen.open();
   };
 
   const openViewWord = (form) => {
     Formulario.setAllData(form);
-    setOpenModaView(true);
+    modalViewOpen.open();
   };
 
   const CustomListItemStyles = (key) => ({
@@ -66,15 +67,15 @@ const ListItems = ({ dataVocabulary, refresh }) => {
       </Box>
 
       <ModalEdit
-        open={openModalEdit}
-        setOpen={setOpenModalEdit}
+        status={modalEditOpen.status}
+        close={modalEditOpen.close}
         Formulario={Formulario}
         refresh={refresh}
       />
 
       <ModalView
-        open={openModaView}
-        setOpen={setOpenModaView}
+        status={modalViewOpen.status}
+        close={modalViewOpen.close}
         form={Formulario.data}
       />
     </Container>

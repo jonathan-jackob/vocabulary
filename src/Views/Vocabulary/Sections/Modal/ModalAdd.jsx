@@ -1,7 +1,6 @@
 import React, { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Dialog, Grid, Slide } from "@mui/material";
-import { PostAddOutlined } from "@mui/icons-material";
 import TopBar from "@Components/Vocabulary/Modal/TopBar";
 import Form from "@Components/Vocabulary/Modal/Form";
 import useForm from "../../../../Hooks/useForm";
@@ -10,15 +9,11 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ModalAdd = ({ open, setOpen, refresh }) => {
+const ModalAdd = ({ status, close, refresh }) => {
   const Formulario = useForm();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    close();
     Formulario.clean();
   };
 
@@ -30,24 +25,15 @@ const ModalAdd = ({ open, setOpen, refresh }) => {
     }
     if (save.success) {
       refresh();
-      handleClose();
+      close();
     }
   };
 
   return (
     <>
-      <Button
-        variant="outlined"
-        onClick={handleClickOpen}
-        disabled={open}
-        fullWidth
-      >
-        Add <PostAddOutlined sx={{ ml: 1 }} />
-      </Button>
-
       <Dialog
         fullScreen
-        open={open}
+        open={status}
         onClose={handleClose}
         TransitionComponent={Transition}
       >
@@ -81,8 +67,8 @@ const ModalAdd = ({ open, setOpen, refresh }) => {
 };
 
 ModalAdd.propTypes = {
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  status: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
 };
 

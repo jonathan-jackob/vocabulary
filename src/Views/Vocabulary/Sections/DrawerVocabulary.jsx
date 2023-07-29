@@ -13,10 +13,11 @@ import {
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
 import useVocabulary from "@Hooks/useVocabulary";
 
-const DrawerVocabulary = ({ open, setOpen }) => {
+const DrawerVocabulary = ({ status, close, refresh }) => {
   const vocabulary = useVocabulary();
   const closeDrawer = () => {
-    setOpen(false);
+    close();
+    refresh();
   };
 
   const addZero = (num) => (num < 10 ? "0" + num : num);
@@ -25,8 +26,8 @@ const DrawerVocabulary = ({ open, setOpen }) => {
     const dateObj = new Date();
     let date = "";
     date += dateObj.getFullYear();
-    date += addZero(dateObj.getMonth() + 1); // getMonth() retorna de 0-11
-    date += addZero(dateObj.getDate());
+    date += "_" + addZero(dateObj.getMonth() + 1); // getMonth() retorna de 0-11
+    date += "_" + addZero(dateObj.getDate());
     date += addZero(dateObj.getHours());
     date += addZero(dateObj.getMinutes());
     date += addZero(dateObj.getSeconds());
@@ -61,7 +62,7 @@ const DrawerVocabulary = ({ open, setOpen }) => {
   };
 
   return (
-    <Drawer anchor="right" open={open} onClose={closeDrawer}>
+    <Drawer anchor="right" open={status} onClose={closeDrawer}>
       <Box sx={{ width: 250 }} role="presentation" onKeyDown={closeDrawer}>
         <List>
           <ListItem key={1} disablePadding>
@@ -99,7 +100,11 @@ const DrawerVocabulary = ({ open, setOpen }) => {
 };
 
 DrawerVocabulary.propTypes = {
-  open: PropTypes.bool.isRequired,
+  status: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  refresh: PropTypes.func,
 };
-
+DrawerVocabulary.defaultProps = {
+  refresh: () => {},
+};
 export default DrawerVocabulary;

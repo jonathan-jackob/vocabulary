@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Dialog, Grid, Slide } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
@@ -9,9 +9,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ModalEdit = ({ open, setOpen, Formulario, refresh }) => {
+const ModalEdit = ({ status, close, Formulario, refresh }) => {
   const handleClose = () => {
-    setOpen(false);
+    close();
   };
 
   const deleteItem = () => {
@@ -43,7 +43,7 @@ const ModalEdit = ({ open, setOpen, Formulario, refresh }) => {
   return (
     <Dialog
       fullScreen
-      open={open}
+      open={status}
       onClose={handleClose}
       TransitionComponent={Transition}
     >
@@ -90,7 +90,8 @@ const ModalEdit = ({ open, setOpen, Formulario, refresh }) => {
 };
 
 ModalEdit.propTypes = {
-  open: PropTypes.bool.isRequired,
+  status: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
   Formulario: PropTypes.object.isRequired,
   refresh: PropTypes.func,
 };

@@ -31,7 +31,9 @@ const useForm = () => {
   const getImage = () => data.image;
   const getComment = () => data.comment;
   const getType = (type) => data.types[type];
-  const getTypes = (type) => data.types;
+  const getTypes = () => {
+    return { ...formInit.types, ...data.types };
+  };
   const getExample = (key) => data.examples[key];
   const getExamples = () => data.examples;
 
@@ -155,6 +157,7 @@ const useForm = () => {
 
   return {
     data,
+    formInit,
     saveEdit,
     saveAdd,
     deleteRegistry,

@@ -21,9 +21,9 @@ import sinImagen from "@Assets/no-image.png";
 import ChipCustomType from "@Components/Vocabulary/ChipCustomType";
 import DialogContent from "@mui/material/DialogContent";
 
-const ModalView = ({ open, setOpen, form }) => {
+const ModalView = ({ status, close, form }) => {
   const handleClose = () => {
-    setOpen(false);
+    close();
   };
 
   const getTypes = () => {
@@ -32,7 +32,7 @@ const ModalView = ({ open, setOpen, form }) => {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} scroll="paper">
+      <Dialog open={status} onClose={handleClose} scroll="paper">
         <CardHeader
           sx={{ pb: 1 }}
           title={
@@ -50,6 +50,7 @@ const ModalView = ({ open, setOpen, form }) => {
         <DialogContent sx={{ p: 0 }}>
           <Card sx={{ maxWidth: 345 }}>
             <Paper
+              elevation={3}
               sx={{
                 minWidth: "300px",
                 position: "relative",
@@ -150,8 +151,8 @@ const ModalView = ({ open, setOpen, form }) => {
 };
 
 ModalView.propTypes = {
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  status: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
   form: PropTypes.object.isRequired,
 };
 

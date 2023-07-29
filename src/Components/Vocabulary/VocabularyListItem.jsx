@@ -9,7 +9,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { EditOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
+import { BorderColor } from "@mui/icons-material";
 import getTypesWord from "@Functions/getTypesWord";
 import sinImagen from "@Assets/no-image.png";
 import ChipCustomType from "./ChipCustomType";
@@ -104,22 +104,12 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
           {getSecondary()}
         </ListItemText>
 
-        {/* {typeof openView === "function" && (
-          <ListItemIcon sx={{ minWidth: 36 }}>
-            <RemoveRedEyeOutlined
-              onClick={openView}
-              sx={{ cursor: "pointer" }}
-              color="success"
-            />
-          </ListItemIcon>
-        )} */}
-
         {typeof openEdit === "function" && (
           <ListItemIcon sx={{ minWidth: 36, ml: 1 }}>
-            <EditOutlined
+            <BorderColor
               onClick={openEdit}
               sx={{ cursor: "pointer" }}
-              color="info"
+              color="default.light"
             />
           </ListItemIcon>
         )}
