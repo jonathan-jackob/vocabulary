@@ -9,21 +9,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ModalEdit = ({ open, setOpen, Formulario, deleteRegistry, refresh }) => {
+const ModalEdit = ({ open, setOpen, Formulario, refresh }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const deleteItem = () => {
-    if (confirm("Estas seguro de eliminar " + Formulario.word)) {
-      deleteRegistry(Formulario.id);
-      handleClose();
-      refresh();
+    if (confirm("Estas seguro de eliminar " + Formulario.getWord())) {
+      const response = Formulario.deleteRegistry(Formulario.getId());
+
+      if (response.error) {
+        alert(response.message);
+      }
+      if (response.success) {
+        handleClose();
+        refresh();
+      }
     }
   };
+
   const saveWord = () => {
-    Formulario.saveEdit();
-    refresh();
-    handleClose();
+    const response = Formulario.saveEdit();
+    if (response.error) {
+      alert(response.message);
+    }
+
+    if (response.success) {
+      refresh();
+      handleClose();
+    }
   };
 
   return (
@@ -78,7 +92,6 @@ const ModalEdit = ({ open, setOpen, Formulario, deleteRegistry, refresh }) => {
 ModalEdit.propTypes = {
   open: PropTypes.bool.isRequired,
   Formulario: PropTypes.object.isRequired,
-  deleteRegistry: PropTypes.func.isRequired,
   refresh: PropTypes.func,
 };
 

@@ -7,8 +7,7 @@ import CustomListItem from "@Components/Vocabulary/VocabularyListItem";
 import useVocabulary from "@Hooks/useVocabulary";
 import useForm from "@Hooks/useForm";
 
-const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
-  const vocabulary = useVocabulary();
+const ListItems = ({ dataVocabulary, refresh }) => {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModaView, setOpenModaView] = useState(false);
   const Formulario = useForm();
@@ -21,17 +20,6 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
   const openViewWord = (form) => {
     Formulario.setAllData(form);
     setOpenModaView(true);
-  };
-
-  const deleteRegistry = (id) => {
-    let arrVocabulary = vocabulary.getVocabulary();
-    const filter = arrVocabulary.filter((item) => {
-      return item.id !== id;
-    });
-
-    setDataVocabulary(filter);
-    vocabulary.setVocabulary(filter);
-    refresh();
   };
 
   const CustomListItemStyles = (key) => ({
@@ -82,7 +70,6 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
         open={openModalEdit}
         setOpen={setOpenModalEdit}
         Formulario={Formulario}
-        deleteRegistry={deleteRegistry}
         refresh={refresh}
       />
 
@@ -97,7 +84,6 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
 
 ListItems.propTypes = {
   dataVocabulary: PropTypes.array.isRequired,
-  setDataVocabulary: PropTypes.func.isRequired,
   refresh: PropTypes.func,
 };
 

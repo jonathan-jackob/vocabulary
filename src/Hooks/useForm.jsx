@@ -147,10 +147,26 @@ const useForm = () => {
     return responseSuccess();
   };
 
+  const deleteRegistry = (id) => {
+    try {
+      let arrVocabulary = vocabulary.getVocabulary();
+      const filter = arrVocabulary.filter((item) => {
+        return item.id !== id;
+      });
+
+      vocabulary.setVocabulary(filter);
+      return responseSuccess();
+    } catch (error) {
+      console.log(error);
+      return responseError("Ocurrió un error, inténtelo mas tarde");
+    }
+  };
+
   return {
     data,
     saveEdit,
     saveAdd,
+    deleteRegistry,
     editExample,
     getComment,
     getExample,
