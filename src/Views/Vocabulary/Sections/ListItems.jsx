@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Container, List } from "@mui/material";
+import { Box, Container, Divider, List, Typography } from "@mui/material";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalView from "./Modal/ModalView";
 import formInit from "@Data/word";
@@ -12,6 +12,7 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModaView, setOpenModaView] = useState(false);
   const [dataModalEditView, setDataModalEditView] = useState(formInit);
+  const [firstLetter, setFirstLetter] = useState("");
 
   const openEditWord = (form) => {
     setDataModalEditView(form);
@@ -34,6 +35,15 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
     refresh();
   };
 
+  const letter = (letter) => {
+    if (firstLetter != letter) {
+      setFirstLetter(letter);
+      return <Typography>{letter.toUpperCase()}</Typography>;
+    } else {
+      return <></>;
+    }
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -42,24 +52,36 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
       <Box sx={{ mt: 2 }}>
         <List>
           {dataVocabulary.map((form, key) => (
-            <CustomListItem
-              key={form.id}
-              form={form}
-              openEdit={() => {
-                openEditWord(form);
-              }}
-              openView={() => {
-                openViewWord(form);
-              }}
-              sx={{
-                bgcolor: key % 2 === 0 ? "#ededed8a" : "#fff",
-                minHeight: 60,
-                pr: 0,
-                pl: 1,
-                pb: "4px",
-                border: "1px solid #ededed8a",
-              }}
-            />
+            <React.Fragment key={key}>
+              {(key == 0 ||
+                dataVocabulary[key].word.charAt(0) !==
+                  dataVocabulary[key - 1].word.charAt(0)) && (
+                <Divider
+                  textAlign="right"
+                  sx={{ color: "#aaa", fontSize: 12, fontWeight: 700, my: 1 }}
+                >
+                  {form.word.charAt(0).toUpperCase()}
+                </Divider>
+              )}
+              <CustomListItem
+                key={form.id}
+                form={form}
+                openEdit={() => {
+                  openEditWord(form);
+                }}
+                openView={() => {
+                  openViewWord(form);
+                }}
+                sx={{
+                  bgcolor: key % 2 === 0 ? "#ededed8a" : "#fff",
+                  minHeight: 60,
+                  pr: 0,
+                  pl: 1,
+                  pb: "4px",
+                  border: "1px solid #ededed8a",
+                }}
+              />
+            </React.Fragment>
           ))}
         </List>
       </Box>

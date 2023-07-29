@@ -119,6 +119,7 @@ function Vocabulary() {
           </Grid>
         </Grid>
       </Box>
+
       <ListItems
         dataVocabulary={dataVocabulary}
         setDataVocabulary={setDataVocabulary}
