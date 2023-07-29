@@ -1,10 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Grid, List, TextField, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  List,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Types from "./Types";
 import VocabularyListItem from "../VocabularyListItem";
+import Examples from "./Examples";
 
-const Form = ({ form, setForm, buttons }) => {
+const Form = ({ form, buttons }) => {
   return (
     <Container sx={{ py: 2 }}>
       <Grid container spacing={2}>
@@ -12,9 +20,9 @@ const Form = ({ form, setForm, buttons }) => {
           <TextField
             label="Word"
             variant="standard"
-            value={form.word}
+            value={form.getWord()}
             onChange={(event) => {
-              setForm({ ...form, word: event.target.value });
+              form.setWord(event.target.value);
             }}
             fullWidth
           />
@@ -24,9 +32,9 @@ const Form = ({ form, setForm, buttons }) => {
           <TextField
             label="Spanish"
             variant="standard"
-            value={form.spanish}
+            value={form.getSpanish()}
             onChange={(event) => {
-              setForm({ ...form, spanish: event.target.value });
+              form.setSpanish(event.target.value);
             }}
             fullWidth
           />
@@ -36,9 +44,9 @@ const Form = ({ form, setForm, buttons }) => {
           <TextField
             label="Pronounce"
             variant="standard"
-            value={form.pronounce}
+            value={form.getPronounce()}
             onChange={(event) => {
-              setForm({ ...form, pronounce: event.target.value });
+              form.setPronounce(event.target.value);
             }}
             fullWidth
           />
@@ -48,25 +56,27 @@ const Form = ({ form, setForm, buttons }) => {
           <TextField
             label="URL Image"
             variant="standard"
-            value={form.image}
+            value={form.getImage()}
             onChange={(event) => {
-              setForm({ ...form, image: event.target.value });
+              form.setImage(event.target.value);
             }}
             fullWidth
           />
         </Grid>
 
+        <Examples form={form} />
+
         <Grid item xs={12}>
-          <Types Form={form} setForm={setForm} />
+          <Types form={form} />
         </Grid>
 
         <Grid item xs={12}>
           <TextField
             label="Comment"
             variant="standard"
-            value={form.comment}
+            value={form.getComment()}
             onChange={(event) => {
-              setForm({ ...form, comment: event.target.value });
+              form.setComment(event.target.value);
             }}
             fullWidth
             multiline
@@ -74,8 +84,8 @@ const Form = ({ form, setForm, buttons }) => {
         </Grid>
         <Grid item xs={12} sx={{ my: 2 }}>
           <Typography component="label">Preview</Typography>
-          <List sx={{ bgcolor: "#eee" }}>
-            <VocabularyListItem form={form} />
+          <List sx={{ px: 1 }} component={Paper}>
+            <VocabularyListItem form={form.data} />
           </List>
         </Grid>
 
@@ -87,7 +97,6 @@ const Form = ({ form, setForm, buttons }) => {
 
 Form.propTypes = {
   form: PropTypes.object.isRequired,
-  setForm: PropTypes.func.isRequired,
   buttons: PropTypes.node,
 };
 

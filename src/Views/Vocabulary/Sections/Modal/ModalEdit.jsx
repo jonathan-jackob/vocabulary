@@ -1,46 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Dialog, Grid, Slide } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import TopBar from "@Components/Vocabulary/Modal/TopBar";
 import Form from "@Components/Vocabulary/Modal/Form";
-import ordenarAsc from "@Functions/ordenarAsc";
-import getVocabularyData from "@Functions/getVocabularyData";
-import saveVocabularyData from "@Functions/saveVocabularyData";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ModalEdit = ({
-  open,
-  setOpen,
-  form,
-  setForm,
-  deleteRegistry,
-  refresh,
-}) => {
-  const saveWord = () => {
-    let jsonTempo = getVocabularyData();
-    let jsonVocabulary = jsonTempo.map((vocabulary) =>
-      form.id == vocabulary.id ? form : vocabulary
-    );
-
-    ordenarAsc(jsonVocabulary, "word");
-    saveVocabularyData(jsonVocabulary);
-    handleClose();
-    refresh();
-  };
-
+const ModalEdit = ({ open, setOpen, Formulario, deleteRegistry, refresh }) => {
   const handleClose = () => {
     setOpen(false);
   };
   const deleteItem = () => {
-    if (confirm("Estas seguro de eliminar " + form.word)) {
-      deleteRegistry(form.id);
+    if (confirm("Estas seguro de eliminar " + Formulario.word)) {
+      deleteRegistry(Formulario.id);
       handleClose();
       refresh();
     }
+  };
+  const saveWord = () => {
+    Formulario.saveEdit();
+    refresh();
+    handleClose();
   };
 
   return (
@@ -53,8 +36,7 @@ const ModalEdit = ({
       <TopBar handleClose={handleClose} title="Edit Word of vocabulary" />
       <Form
         handleClose={handleClose}
-        form={form}
-        setForm={setForm}
+        form={Formulario}
         buttons={
           <Grid
             item
@@ -67,7 +49,7 @@ const ModalEdit = ({
               sx={{ alignSelf: "start" }}
               color="danger"
             >
-              Delete <DeleteOutline sx={{ ml: 2 }} />
+              <DeleteOutline />
             </Button>
             <Box>
               <Button
@@ -95,9 +77,7 @@ const ModalEdit = ({
 
 ModalEdit.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
-  form: PropTypes.object.isRequired,
-  setForm: PropTypes.func.isRequired,
+  Formulario: PropTypes.object.isRequired,
   deleteRegistry: PropTypes.func.isRequired,
   refresh: PropTypes.func,
 };

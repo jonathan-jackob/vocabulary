@@ -11,10 +11,10 @@ import {
   ListItemText,
 } from "@mui/material";
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
-import getVocabularyData from "@Functions/getVocabularyData";
-import saveVocabularyData from "@Functions/saveVocabularyData";
+import useVocabulary from "@Hooks/useVocabulary";
 
 const DrawerVocabulary = ({ open, setOpen }) => {
+  const vocabulary = useVocabulary();
   const closeDrawer = () => {
     setOpen(false);
   };
@@ -35,7 +35,7 @@ const DrawerVocabulary = ({ open, setOpen }) => {
   };
 
   const backupData = () => {
-    const data = getVocabularyData();
+    const data = vocabulary.getVocabulary();
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -54,7 +54,7 @@ const DrawerVocabulary = ({ open, setOpen }) => {
       if (
         confirm("Se eliminaran los registros existentes, ¿deseas continuar?")
       ) {
-        saveVocabularyData(JSON.parse(e.target.result));
+        vocabulary.setVocabulary(JSON.parse(e.target.result));
         closeDrawer();
       }
     };

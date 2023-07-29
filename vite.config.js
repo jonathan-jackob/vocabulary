@@ -31,6 +31,10 @@ export default defineConfig({
         replacement: path.resolve(path.join(__dirname, "/src/Functions"))
       },
       {
+        find: "@Hooks",
+        replacement: path.resolve(path.join(__dirname, "/src/Hooks"))
+      },
+      {
         find: "@Theme",
         replacement: path.resolve(path.join(__dirname, "/src/Theme"))
       }

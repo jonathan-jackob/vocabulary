@@ -10,8 +10,8 @@ import {
 import { MoreVertOutlined, Search } from "@mui/icons-material";
 import ModalAdd from "./Sections/Modal/ModalAdd";
 import DrawerVocabulary from "./Sections/DrawerVocabulary";
-import getVocabularyData from "@Functions/getVocabularyData";
 import ListItems from "./Sections/ListItems";
+import useVocabulary from "@Hooks/useVocabulary";
 
 function Vocabulary() {
   const [dataVocabulary, setDataVocabulary] = useState([]);
@@ -19,10 +19,11 @@ function Vocabulary() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [freshData, setFreshData] = useState(false);
   const [searchWord, setSearchWord] = useState("");
+  const vocabulary = useVocabulary();
 
   useEffect(() => {
     if (!openModalAdd) {
-      const objData = getVocabularyData();
+      const objData = vocabulary.getVocabulary();
       if (searchWord.trim() == "") {
         setDataVocabulary(objData);
       } else {

@@ -4,17 +4,14 @@ import { Button, Dialog, Grid, Slide } from "@mui/material";
 import { PostAddOutlined } from "@mui/icons-material";
 import TopBar from "@Components/Vocabulary/Modal/TopBar";
 import Form from "@Components/Vocabulary/Modal/Form";
-import formInit from "@Data/word";
-import ordenarAsc from "@Functions/ordenarAsc";
-import getVocabularyData from "@Functions/getVocabularyData";
-import saveVocabularyData from "@Functions/saveVocabularyData";
+import useForm from "../../../../Hooks/useForm";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const ModalAdd = ({ open, setOpen, refresh }) => {
-  const [formState, setFormState] = useState(formInit);
+  const Formulario = useForm();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,25 +19,19 @@ const ModalAdd = ({ open, setOpen, refresh }) => {
 
   const handleClose = () => {
     setOpen(false);
+    Formulario.clean();
   };
 
   const saveWord = () => {
-    let jsonVocabulary = getVocabularyData();
-    if (formState.word.trim() === "") {
-      alert("Require a word.");
-      return false;
+    const save = Formulario.saveAdd();
+
+    if (save.error) {
+      alert(save.message);
     }
-
-    jsonVocabulary.push({
-      id: Date.now(),
-      ...formState,
-    });
-
-    ordenarAsc(jsonVocabulary, "word");
-    setFormState(formInit); // limpieza de formulario
-    saveVocabularyData(jsonVocabulary);
-    handleClose();
-    refresh();
+    if (save.success) {
+      refresh();
+      handleClose();
+    }
   };
 
   return (
@@ -63,8 +54,7 @@ const ModalAdd = ({ open, setOpen, refresh }) => {
         <TopBar handleClose={handleClose} title="Add Word the vocabulary" />
 
         <Form
-          form={formState}
-          setForm={setFormState}
+          form={Formulario}
           buttons={
             <Grid item xs={12} textAlign="right" sx={{ mt: 3 }}>
               <Button

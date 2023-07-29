@@ -8,17 +8,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 
-const Types = ({ Form, setForm }) => {
-  const { noun, verb, adjetive, preposition, adverb } = Form.types;
-
+const Types = ({ form }) => {
   const handleChange = (event) => {
-    setForm({
-      ...Form,
-      types: {
-        ...Form.types,
-        [event.target.name]: event.target.checked,
-      },
-    });
+    form.setType(event.target.name, event.target.checked);
   };
 
   return (
@@ -29,7 +21,7 @@ const Types = ({ Form, setForm }) => {
           control={
             <Checkbox
               name="noun"
-              checked={noun}
+              checked={form.getType("noun")}
               onChange={handleChange}
               color="noun"
             />
@@ -40,7 +32,7 @@ const Types = ({ Form, setForm }) => {
           control={
             <Checkbox
               name="verb"
-              checked={verb}
+              checked={form.getType("verb")}
               onChange={handleChange}
               color="verb"
             />
@@ -51,7 +43,7 @@ const Types = ({ Form, setForm }) => {
           control={
             <Checkbox
               name="adjetive"
-              checked={adjetive}
+              checked={form.getType("adjetive")}
               onChange={handleChange}
               color="adjetive"
             />
@@ -62,7 +54,7 @@ const Types = ({ Form, setForm }) => {
           control={
             <Checkbox
               name="preposition"
-              checked={preposition}
+              checked={form.getType("preposition")}
               onChange={handleChange}
               color="preposition"
             />
@@ -73,7 +65,7 @@ const Types = ({ Form, setForm }) => {
           control={
             <Checkbox
               name="adverb"
-              checked={adverb}
+              checked={form.getType("adverb")}
               onChange={handleChange}
               color="adverb"
             />
@@ -86,8 +78,7 @@ const Types = ({ Form, setForm }) => {
 };
 
 Types.propTypes = {
-  Form: PropTypes.object.isRequired,
-  setForm: PropTypes.func.isRequired,
+  form: PropTypes.object.isRequired,
 };
 
 export default Types;

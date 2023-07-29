@@ -1,48 +1,47 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Container, Divider, List, Typography } from "@mui/material";
+import { Box, Container, Divider, List } from "@mui/material";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalView from "./Modal/ModalView";
-import formInit from "@Data/word";
 import CustomListItem from "@Components/Vocabulary/VocabularyListItem";
-import saveVocabularyData from "@Functions/saveVocabularyData";
-import getVocabularyData from "@Functions/getVocabularyData";
+import useVocabulary from "@Hooks/useVocabulary";
+import useForm from "@Hooks/useForm";
 
 const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
+  const vocabulary = useVocabulary();
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModaView, setOpenModaView] = useState(false);
-  const [dataModalEditView, setDataModalEditView] = useState(formInit);
-  const [firstLetter, setFirstLetter] = useState("");
+  const Formulario = useForm();
 
   const openEditWord = (form) => {
-    setDataModalEditView(form);
+    Formulario.setAllData(form);
     setOpenModalEdit(true);
   };
 
   const openViewWord = (form) => {
-    setDataModalEditView(form);
+    Formulario.setAllData(form);
     setOpenModaView(true);
   };
 
   const deleteRegistry = (id) => {
-    let jsonVocabulary = getVocabularyData();
-    const filter = jsonVocabulary.filter((item) => {
+    let arrVocabulary = vocabulary.getVocabulary();
+    const filter = arrVocabulary.filter((item) => {
       return item.id !== id;
     });
 
     setDataVocabulary(filter);
-    saveVocabularyData(filter);
+    vocabulary.setVocabulary(filter);
     refresh();
   };
 
-  const letter = (letter) => {
-    if (firstLetter != letter) {
-      setFirstLetter(letter);
-      return <Typography>{letter.toUpperCase()}</Typography>;
-    } else {
-      return <></>;
-    }
-  };
+  const CustomListItemStyles = (key) => ({
+    bgcolor: key % 2 === 0 ? "#ededed8a" : "#fff",
+    minHeight: 60,
+    pr: 0,
+    pl: 1,
+    pb: "4px",
+    border: "1px solid #ededed8a",
+  });
 
   return (
     <Container
@@ -72,14 +71,7 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
                 openView={() => {
                   openViewWord(form);
                 }}
-                sx={{
-                  bgcolor: key % 2 === 0 ? "#ededed8a" : "#fff",
-                  minHeight: 60,
-                  pr: 0,
-                  pl: 1,
-                  pb: "4px",
-                  border: "1px solid #ededed8a",
-                }}
+                sx={CustomListItemStyles(key)}
               />
             </React.Fragment>
           ))}
@@ -89,8 +81,7 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
       <ModalEdit
         open={openModalEdit}
         setOpen={setOpenModalEdit}
-        form={dataModalEditView}
-        setForm={setDataModalEditView}
+        Formulario={Formulario}
         deleteRegistry={deleteRegistry}
         refresh={refresh}
       />
@@ -98,7 +89,7 @@ const ListItems = ({ dataVocabulary, setDataVocabulary, refresh }) => {
       <ModalView
         open={openModaView}
         setOpen={setOpenModaView}
-        form={dataModalEditView}
+        form={Formulario.data}
       />
     </Container>
   );
