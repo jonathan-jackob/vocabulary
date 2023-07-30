@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid, TextField } from "@mui/material";
 import Types from "./Types";
-import Examples from "../../../../Components/Modals/Examples";
+import Examples from "../../../../Components/Modals/Form/Examples";
 
 const Form = ({ FormVocabulary, buttons }) => {
   return (

@@ -20,7 +20,7 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
     refresh();
   };
 
-  const addZero = (num) => (num < 10 ? "0" + num : num);
+  const addZero = (num) => (num < 10 ? `0${num}` : num);
 
   const date = () => {
     const dateObj = new Date();

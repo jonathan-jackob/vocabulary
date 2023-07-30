@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   IconButton,
   Typography,
 } from "@mui/material";
-import {
-  Delete,
-  DeleteOutline,
-  EditNote,
-  ExpandMore,
-} from "@mui/icons-material";
+import { DeleteOutline, EditNote, ExpandMore } from "@mui/icons-material";
 import useOpen from "Hooks/useOpen";
 import EditGrammar from "../Sections/Modals/EditGrammar";
 import useGrammar from "Hooks/useGrammar";
@@ -49,8 +43,8 @@ const ListsGrammar = ({ data, update }) => {
   };
 
   const addStrong = (example, keywords) => {
-    const kewordsArray = keywords.split(",");
-    kewordsArray.forEach((keyword) => {
+    const keywordsArray = keywords.split(",");
+    keywordsArray.forEach((keyword) => {
       const regexp = new RegExp(`\\b(?<!\\w)${keyword.trim()}(?!\\w)\\b`, "gi");
 
       example = String(example).replace(
@@ -74,11 +68,17 @@ const ListsGrammar = ({ data, update }) => {
             <Typography fontSize={18}>{data.title}</Typography>
           </AccordionSummary>
           <AccordionDetails>
+            {data.rules.length > 1 &&
+              data.rules.map((rule, keyRule) => (
+                <Fragment key={keyRule}>
+                  <Typography> {rule.title}</Typography>
+                </Fragment>
+              ))}
             <Typography>{data.description}</Typography>
             {data.examples.length > 1 && (
               <ul>
                 {data.examples.map((example, key2) => (
-                  <React.Fragment key={key2}>
+                  <Fragment key={key2}>
                     {example && (
                       <li>
                         <Typography
@@ -88,7 +88,7 @@ const ListsGrammar = ({ data, update }) => {
                         />
                       </li>
                     )}
-                  </React.Fragment>
+                  </Fragment>
                 ))}
               </ul>
             )}

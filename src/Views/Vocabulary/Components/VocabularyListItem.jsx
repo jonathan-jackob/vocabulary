@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import { BorderColor } from "@mui/icons-material";
 import sinImagen from "Assets/no-image.png";
-import ChipCustomType from "./ChipCustomType";
-import getTypesWord from "Functions/getTypesWord";
+import ChipTypesActive from "./ChipTypesActive";
 
 const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   const getTitle = () => {
@@ -39,8 +38,6 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
   };
 
   const getSecondary = () => {
-    const typesWord = getTypesWord(form.types);
-
     return (
       <>
         {form.spanish && (
@@ -62,17 +59,14 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
             mt: "5px",
           }}
         >
-          {typesWord.map((type, key) => (
-            <ChipCustomType
-              key={key}
-              type={type}
-              sx={{
-                fontSize: 7,
-                minWidth: 55,
-                textAlign: "center",
-              }}
-            />
-          ))}
+          <ChipTypesActive
+            types={form.types}
+            sx={{
+              fontSize: 7,
+              minWidth: 55,
+              textAlign: "center",
+            }}
+          />
         </Box>
       </>
     );

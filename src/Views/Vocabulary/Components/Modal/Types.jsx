@@ -41,7 +41,7 @@ const Types = ({ form }) => {
               <Typography
                 component="span"
                 sx={{
-                  color: form.getType(type) ? type + ".main" : "inherit",
+                  color: form.getType(type) ? `${type}.main"` : "inherit",
                   fontWeight: 500,
                 }}
               >

@@ -4,11 +4,18 @@ import useLocalStorage from "./useLocalStorage";
 import ordenarAsc from "Functions/ordenarAsc";
 
 const useGrammar = (dataInit = null) => {
+  const initRules = [
+    {
+      title: "",
+      examples: [""],
+    },
+  ];
   const formInit = {
     description: "",
     examples: [""],
     keywords: "",
     title: "",
+    rules: initRules,
   };
   const grammar = useLocalStorage("grammar");
   const response = useResponse();
@@ -20,6 +27,8 @@ const useGrammar = (dataInit = null) => {
   const getExamples = () => data.examples;
   const getId = () => data.id;
   const getKeywords = () => data.keywords;
+  const getRule = (key) => data.rules[key];
+  const getRules = () => data.rules;
   const getTitle = () => data.title;
 
   //setters
@@ -37,6 +46,12 @@ const useGrammar = (dataInit = null) => {
   };
   const setTitle = (title) => {
     setData({ ...data, title });
+  };
+  const setRule = (keyRule, rule) => {
+    let rules = getRules();
+    rules[keyRule] = rule;
+    rules = rules.filter((rule) => rule.title.trim() !== "");
+    setData({ ...data, rules: [...rules, ...initRules] });
   };
 
   // functions
@@ -125,12 +140,16 @@ const useGrammar = (dataInit = null) => {
     getDescription,
     getExample,
     getExamples,
+    getId,
     getKeywords,
+    getRule,
+    getRules,
     getTitle,
     setAllData,
     setDescription,
     setExamples,
     setKeywords,
+    setRule,
     setTitle,
   };
 };

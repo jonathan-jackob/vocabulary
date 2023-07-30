@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Container, Grid, TextField } from "@mui/material";
-import Examples from "Components/Modals/Examples";
+import { Container, FormLabel, Grid, Paper, TextField } from "@mui/material";
+import Rules from "Components/Modals/Form/Rules";
 
 const FormGrammar = ({ dataGrammar, buttons }) => {
   return (
@@ -15,6 +15,7 @@ const FormGrammar = ({ dataGrammar, buttons }) => {
             onChange={(event) => {
               dataGrammar.setTitle(event.target.value);
             }}
+            autoComplete="off"
             fullWidth
           />
         </Grid>
@@ -27,14 +28,13 @@ const FormGrammar = ({ dataGrammar, buttons }) => {
             onChange={(event) => {
               dataGrammar.setDescription(event.target.value);
             }}
+            autoComplete="off"
             fullWidth
-            multiline
-            minRows={3}
           />
         </Grid>
 
         <Grid item xs={12}>
-          <Examples form={dataGrammar} />
+          <Rules dataGrammar={dataGrammar}></Rules>
         </Grid>
 
         <Grid item xs={12}>
@@ -45,8 +45,9 @@ const FormGrammar = ({ dataGrammar, buttons }) => {
             onChange={(event) => {
               dataGrammar.setKeywords(event.target.value);
             }}
-            fullWidth
+            autoComplete="off"
             placeholder="I´m, I am (use comma for separate keywords)"
+            fullWidth
           />
         </Grid>
       </Grid>

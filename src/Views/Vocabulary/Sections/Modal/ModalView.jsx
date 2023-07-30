@@ -18,16 +18,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import sinImagen from "Assets/no-image.png";
 import DialogContent from "@mui/material/DialogContent";
-import getTypesWord from "Functions/getTypesWord";
-import ChipCustomType from "Views/Vocabulary/Components/ChipCustomType";
+import ChipTypesActive from "Views/Vocabulary/Components/ChipTypesActive";
 
 const ModalView = ({ status, close, form }) => {
   const handleClose = () => {
     close();
-  };
-
-  const getTypes = () => {
-    return getTypesWord(form.types);
   };
 
   return (
@@ -60,12 +55,12 @@ const ModalView = ({ status, close, form }) => {
             >
               <CardMedia
                 component="img"
-                image={form.image == "" ? sinImagen : form.image}
+                image={form.image ? sinImagen : form.image}
                 alt="Paella dish"
                 sx={{
                   height: "auto",
                   width: "100%",
-                  objectFit: form.image == "" ? "scale-down" : "cover",
+                  objectFit: form.image ? "scale-down" : "cover",
                   aspectRatio: "2/1.7",
                   borderRadius: 0,
                 }}
@@ -83,13 +78,10 @@ const ModalView = ({ status, close, form }) => {
                   justifyContent: "end",
                 }}
               >
-                {getTypes().map((type, key) => (
-                  <ChipCustomType
-                    key={key}
-                    type={type}
-                    sx={{ minWidth: "15%", fontSize: 10 }}
-                  />
-                ))}
+                <ChipTypesActive
+                  types={form.types}
+                  sx={{ minWidth: "15%", fontSize: 10 }}
+                />
               </Box>
 
               {form.examples.length > 1 && (
