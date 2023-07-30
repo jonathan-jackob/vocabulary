@@ -14,11 +14,21 @@ const useOpen = (state = false) => {
   const toggle = () => {
     setStatus(!status);
   };
+
+  const isShow = () => {
+    return status;
+  };
+
+  const isHide = () => {
+    return !status;
+  };
   return {
     close,
     status,
     open,
     toggle,
+    isShow,
+    isHide,
   };
 };
 

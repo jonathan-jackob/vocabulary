@@ -1,7 +1,7 @@
 import React, { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Dialog, Grid, Slide } from "@mui/material";
-import useForm from "../../../../Hooks/useForm";
+import useVocabulary from "../../../../Hooks/useVocabulary";
 import TopBar from "../../../../Components/Vocabulary/Modal/TopBar";
 import Form from "../../../../Components/Vocabulary/Modal/Form";
 
@@ -10,7 +10,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const ModalAdd = ({ status, close, refresh }) => {
-  const Formulario = useForm();
+  const Formulario = useVocabulary();
 
   const handleClose = () => {
     close();

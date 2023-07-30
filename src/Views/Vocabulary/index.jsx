@@ -1,41 +1,49 @@
 import { useEffect, useState } from "react";
-import { Button, Grid, IconButton, Typography } from "@mui/material";
+import { Button, Divider, Grid, IconButton, Typography } from "@mui/material";
 import { MoreVertOutlined, PostAddOutlined } from "@mui/icons-material";
 import DrawerVocabulary from "./Sections/DrawerVocabulary";
 import ListItems from "./Sections/ListItems";
 import ModalAdd from "./Sections/Modal/ModalAdd";
 import SearchVocabulary from "./Sections/SearchVocabulary";
-import useVocabulary from "../../Hooks/useVocabulary";
 import useOpen from "../../Hooks/useOpen";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 function Vocabulary() {
   const modalAddOpen = useOpen();
   const drawerOpen = useOpen();
+  const showWithoutData = useOpen();
   const [dataVocabulary, setDataVocabulary] = useState([]);
   const [freshData, setFreshData] = useState(false);
   const [searchWord, setSearchWord] = useState("");
   const [filter, setFilter] = useState("all");
-  const vocabulary = useVocabulary();
+  const vocabulary = useLocalStorage("vocabulary");
 
   useEffect(() => {
-    let objData = vocabulary.getVocabulary();
+    let objData = vocabulary.getDataJSON();
+    const conFiltro = filter !== "all";
+    const conBusqueda = searchWord.trim() !== "";
 
-    if (filter !== "all") {
+    if (conFiltro) {
       objData = objData.filter((item) => item.types[filter]);
     }
 
-    if (searchWord.trim() !== "") {
+    if (conBusqueda) {
       objData = objData.filter((item) => {
         const word = String(item.word).toLowerCase();
         const search = searchWord.trim().toLowerCase();
         return word.includes(search);
       });
     }
+    if ((conFiltro || conBusqueda) && objData.length === 0) {
+      showWithoutData.open();
+    } else {
+      showWithoutData.close();
+    }
     setDataVocabulary(objData);
   }, [freshData, modalAddOpen.status, searchWord, filter]);
 
   const refresh = () => {
-    setFreshData((value) => !value);
+    setFreshData(!freshData);
   };
 
   return (
@@ -80,12 +88,25 @@ function Vocabulary() {
         setFilter={setFilter}
       />
 
-      <ListItems
-        dataVocabulary={dataVocabulary}
-        setDataVocabulary={setDataVocabulary}
-        refresh={refresh}
-      />
+      {dataVocabulary.length > 0 && (
+        <ListItems
+          dataVocabulary={dataVocabulary}
+          setDataVocabulary={setDataVocabulary}
+          refresh={refresh}
+        />
+      )}
 
+      {showWithoutData.isShow() && (
+        <Divider
+          textAlign="center"
+          sx={{
+            color: "default.light",
+            mt: 3,
+          }}
+        >
+          No results.
+        </Divider>
+      )}
       <Button
         aria-label="add word"
         sx={{

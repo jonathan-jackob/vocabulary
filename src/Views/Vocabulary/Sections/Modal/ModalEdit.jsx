@@ -16,7 +16,7 @@ const ModalEdit = ({ status, close, Formulario, refresh }) => {
 
   const deleteItem = () => {
     if (confirm("Estas seguro de eliminar " + Formulario.getWord())) {
-      const response = Formulario.deleteRegistry(Formulario.getId());
+      const response = Formulario.deleteItem(Formulario.getId());
 
       if (response.error) {
         alert(response.message);

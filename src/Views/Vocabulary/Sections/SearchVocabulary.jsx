@@ -11,10 +11,10 @@ import {
   TextField,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import useForm from "../../../Hooks/useForm";
+import useVocabulary from "../../../Hooks/useVocabulary";
 
 const SearchVocabulary = ({ searchWord, setSearchWord, filter, setFilter }) => {
-  const Formulario = useForm();
+  const Formulario = useVocabulary();
   const filtros = ["all", ...Object.keys(Formulario.getTypes())];
 
   const handleChange = (event) => {

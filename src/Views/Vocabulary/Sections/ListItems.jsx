@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { Box, Container, Divider, List } from "@mui/material";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalView from "./Modal/ModalView";
-import useForm from "../../../Hooks/useForm";
+import useVocabulary from "../../../Hooks/useVocabulary";
 import useOpen from "../../../Hooks/useOpen";
 import VocabularyListItem from "../../../Components/Vocabulary/VocabularyListItem";
 
 const ListItems = ({ dataVocabulary, refresh }) => {
   const modalEditOpen = useOpen();
   const modalViewOpen = useOpen();
-  const Formulario = useForm();
+  const Formulario = useVocabulary();
 
   const openEditWord = (form) => {
     Formulario.setAllData(form);

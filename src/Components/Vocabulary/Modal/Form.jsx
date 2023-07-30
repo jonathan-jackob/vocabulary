@@ -84,12 +84,12 @@ const Form = ({ form, buttons }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sx={{ my: 2 }}>
+        {/* <Grid item xs={12} sx={{ my: 2 }}>
           <Typography component="label">Preview</Typography>
           <List sx={{ px: 1, mt: 1 }} component={Paper}>
             <VocabularyListItem form={form.data} />
           </List>
-        </Grid>
+        </Grid> */}
 
         {buttons}
       </Grid>
