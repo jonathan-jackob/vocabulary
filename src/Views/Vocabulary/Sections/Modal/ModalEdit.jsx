@@ -2,12 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Dialog, Grid, Slide } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
-import Form from "Views/Vocabulary/Components/Modal/Form";
-import TopBar from "Views/Vocabulary/Components/Modal/TopBar";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import Form from "Views/Vocabulary/Components/Modal/FormVocabulary";
+import TopBar from "Components/Modals/TopBar";
+import SlideUp from "Components/Transition/SlideUp";
 
 const ModalEdit = ({ status, close, Formulario, refresh }) => {
   const handleClose = () => {
@@ -45,12 +42,12 @@ const ModalEdit = ({ status, close, Formulario, refresh }) => {
       fullScreen
       open={status}
       onClose={handleClose}
-      TransitionComponent={Transition}
+      TransitionComponent={SlideUp}
     >
       <TopBar handleClose={handleClose} title="Edit Word of vocabulary" />
       <Form
         handleClose={handleClose}
-        form={Formulario}
+        FormVocabulary={Formulario}
         buttons={
           <Grid
             item

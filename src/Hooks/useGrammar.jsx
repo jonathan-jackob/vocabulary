@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import useResponse from "./useResponse";
+import useLocalStorage from "./useLocalStorage";
+import ordenarAsc from "Functions/ordenarAsc";
 
 const useGrammar = () => {
   const formInit = {
@@ -12,12 +14,14 @@ const useGrammar = () => {
   const response = useResponse();
   const [data, setData] = useState(formInit);
 
+  // getters
   const getDescription = () => data.description;
   const getExample = (key) => data.examples[key];
   const getExamples = () => data.examples;
   const getKeywords = () => data.keywords;
   const getTitle = () => data.title;
 
+  //setters
   const setAllData = (data) => {
     setData({ ...formInit, ...data });
   };
@@ -32,6 +36,23 @@ const useGrammar = () => {
   };
   const setTitle = (title) => {
     setData({ ...data, title });
+  };
+
+  // functions
+  const editExample = (example, key) => {
+    let examples = [...data.examples];
+    examples[key] = example;
+
+    setData({
+      ...data,
+      /**los examples siempre deben contener un elemento vacío,
+       * se filtra y se eliminan todos y se agrega uno al final */
+      examples: [...examples.filter((item) => item.trim() !== ""), ""],
+    });
+  };
+
+  const clean = () => {
+    setData(formInit);
   };
 
   const formValidate = () => {
@@ -90,9 +111,11 @@ const useGrammar = () => {
 
   return {
     formInit,
+    clean,
     saveAdd,
     saveEdit,
     deleteItem,
+    editExample,
     getDescription,
     getExample,
     getExamples,

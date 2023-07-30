@@ -1,17 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Container,
-  Grid,
-  List,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, TextField } from "@mui/material";
 import Types from "./Types";
-import Examples from "./Examples";
+import Examples from "../../../../Components/Modals/Examples";
 
-const Form = ({ form, buttons }) => {
+const Form = ({ FormVocabulary, buttons }) => {
   return (
     <Container sx={{ py: 2 }}>
       <Grid container spacing={2}>
@@ -19,9 +12,9 @@ const Form = ({ form, buttons }) => {
           <TextField
             label="Word or Phrase"
             variant="standard"
-            value={form.getWord()}
+            value={FormVocabulary.getWord()}
             onChange={(event) => {
-              form.setWord(event.target.value);
+              FormVocabulary.setWord(event.target.value);
             }}
             fullWidth
           />
@@ -31,9 +24,9 @@ const Form = ({ form, buttons }) => {
           <TextField
             label="Pronounce"
             variant="standard"
-            value={form.getPronounce()}
+            value={FormVocabulary.getPronounce()}
             onChange={(event) => {
-              form.setPronounce(event.target.value);
+              FormVocabulary.setPronounce(event.target.value);
             }}
             fullWidth
           />
@@ -43,29 +36,29 @@ const Form = ({ form, buttons }) => {
           <TextField
             label="Spanish"
             variant="standard"
-            value={form.getSpanish()}
+            value={FormVocabulary.getSpanish()}
             onChange={(event) => {
-              form.setSpanish(event.target.value);
+              FormVocabulary.setSpanish(event.target.value);
             }}
             fullWidth
           />
         </Grid>
 
         <Grid item xs={12}>
-          <Types form={form} />
+          <Types form={FormVocabulary} />
         </Grid>
 
         <Grid item xs={12}>
-          <Examples form={form} />
+          <Examples form={FormVocabulary} />
         </Grid>
 
         <Grid item xs={12}>
           <TextField
             label="Image"
             variant="standard"
-            value={form.getImage()}
+            value={FormVocabulary.getImage()}
             onChange={(event) => {
-              form.setImage(event.target.value);
+              FormVocabulary.setImage(event.target.value);
             }}
             fullWidth
             placeholder="Example: https://images.com/sun.jpg"
@@ -76,19 +69,13 @@ const Form = ({ form, buttons }) => {
           <TextField
             label="Comment"
             variant="standard"
-            value={form.getComment()}
+            value={FormVocabulary.getComment()}
             onChange={(event) => {
-              form.setComment(event.target.value);
+              FormVocabulary.setComment(event.target.value);
             }}
             fullWidth
           />
         </Grid>
-        {/* <Grid item xs={12} sx={{ my: 2 }}>
-          <Typography component="label">Preview</Typography>
-          <List sx={{ px: 1, mt: 1 }} component={Paper}>
-            <VocabularyListItem form={form.data} />
-          </List>
-        </Grid> */}
 
         {buttons}
       </Grid>
@@ -97,7 +84,7 @@ const Form = ({ form, buttons }) => {
 };
 
 Form.propTypes = {
-  form: PropTypes.object.isRequired,
+  FormVocabulary: PropTypes.object.isRequired,
   buttons: PropTypes.node,
 };
 

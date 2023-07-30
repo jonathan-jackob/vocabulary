@@ -107,6 +107,7 @@ function Vocabulary() {
           No results.
         </Divider>
       )}
+
       <Button
         aria-label="add word"
         sx={{
@@ -126,13 +127,11 @@ function Vocabulary() {
         <PostAddOutlined />
       </Button>
 
-      <Grid item xs={4} md={2}>
-        <ModalAdd
-          status={modalAddOpen.status}
-          close={modalAddOpen.close}
-          refresh={refresh}
-        />
-      </Grid>
+      <ModalAdd
+        status={modalAddOpen.status}
+        close={modalAddOpen.close}
+        refresh={refresh}
+      />
     </>
   );
 }

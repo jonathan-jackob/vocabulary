@@ -1,64 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Typography,
-} from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { Box, Button, Typography } from "@mui/material";
+import { PostAddOutlined } from "@mui/icons-material";
+import useOpen from "Hooks/useOpen";
+import AddModal from "./Sections/Modals/AddModal";
+import useLocalStorage from "Hooks/useLocalStorage";
+import ListsGrammar from "./Components/ListsGrammar";
 
 const Grammar = () => {
-  const [expanded, setExpanded] = useState(false);
+  const modalAddOpen = useOpen();
+  const update = useOpen();
+  const grammar = useLocalStorage("grammar");
+  const [dataGrammar, setDataGrammar] = useState([]);
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+  useEffect(() => {
+    let objData = grammar.getDataJSON();
+    setDataGrammar(objData);
+  }, [update.status, modalAddOpen.status]);
 
-  const data = [
-    {
-      title: "Possessive adjetives",
-      keywords: "I´m,not",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet ab molestias, dolorem, alias quae aspernatur culpa accusamus est pariatur similique quas consectetur eveniet illum perspiciatis blanditiis eaque iure repellat nam.",
-      examples: ["I´m from Colombia", "I´m not from Venezuela"],
-    },
-    {
-      title: "Possessive adjetives",
-      keywords: "I´m,not",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet ab molestias, dolorem, alias quae aspernatur culpa accusamus est pariatur similique quas consectetur eveniet illum perspiciatis blanditiis eaque iure repellat nam.",
-      examples: ["I´m from Colombia", "I´m not from Venezuela"],
-    },
-    {
-      title: "Possessive adjetives",
-      keywords: "I´m,not",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet ab molestias, dolorem, alias quae aspernatur culpa accusamus est pariatur similique quas consectetur eveniet illum perspiciatis blanditiis eaque iure repellat nam.",
-      examples: ["I´m from Colombia", "I´m not from Venezuela"],
-    },
-    {
-      title: "Possessive adjetives",
-      keywords: "I´m,not",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet ab molestias, dolorem, alias quae aspernatur culpa accusamus est pariatur similique quas consectetur eveniet illum perspiciatis blanditiis eaque iure repellat nam.",
-      examples: ["I´m from Colombia", "I´m not from Venezuela"],
-    },
-  ];
-
-  const addStrong = (example, keywords) => {
-    const kewordsArray = keywords.split(",");
-    kewordsArray.forEach((keyword) => {
-      const regexp = new RegExp(keyword, "gi");
-      example = String(example).replace(
-        regexp,
-        "<strong>" + keyword + "</strong>"
-      );
-    });
-
-    return example;
-  };
   return (
     <>
       <Box
@@ -88,32 +47,33 @@ const Grammar = () => {
       </Box>
 
       <Box>
-        {data.map((data, key) => (
-          <Accordion
-            key={key}
-            expanded={expanded === "panel_" + key}
-            onChange={handleChange("panel_" + key)}
-          >
-            <AccordionSummary expandIcon={<ExpandMore />} id={"panel_" + key}>
-              <Typography fontSize={18}>{data.title}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{data.description}</Typography>
-              <ul>
-                {data.examples.map((example, key2) => (
-                  <li key={key2}>
-                    <Typography
-                      dangerouslySetInnerHTML={{
-                        __html: addStrong(example, data.keywords),
-                      }}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+        <ListsGrammar data={dataGrammar} />
       </Box>
+
+      <Button
+        aria-label="add word"
+        sx={{
+          position: "fixed",
+          bottom: 35,
+          right: 15,
+          zIndex: 1,
+          p: 0,
+          minWidth: 44,
+          minHeight: 44,
+          borderRadius: "50%",
+        }}
+        color="primary"
+        variant="contained"
+        onClick={modalAddOpen.open}
+      >
+        <PostAddOutlined />
+      </Button>
+
+      <AddModal
+        status={modalAddOpen.status}
+        close={modalAddOpen.close}
+        callbackSave={update.toggle}
+      />
     </>
   );
 };

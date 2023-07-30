@@ -1,28 +1,29 @@
-import React, { forwardRef, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Button, Dialog, Grid, Slide } from "@mui/material";
-import useVocabulary from "Hooks/useVocabulary";
-import TopBar from "Components/Modals/TopBar";
-import Form from "Views/Vocabulary/Components/Modal/FormVocabulary";
+import useGrammar from "Hooks/useGrammar";
 import SlideUp from "Components/Transition/SlideUp";
+import { Button, Dialog, Grid } from "@mui/material";
+import TopBar from "Components/Modals/TopBar";
+import FormGrammar from "Views/Grammar/Components/Modals/FormGrammar";
 
-const ModalAdd = ({ status, close, refresh }) => {
-  const FormVocabulary = useVocabulary();
+const AddModal = ({ status, close, callbackSave }) => {
+  const dataGrammar = useGrammar();
 
   const handleClose = () => {
     close();
-    FormVocabulary.clean();
+    dataGrammar.clean();
   };
 
   const saveWord = () => {
-    const save = FormVocabulary.saveAdd();
+    const save = dataGrammar.saveAdd();
 
     if (save.error) {
       alert(save.message);
     }
+
     if (save.success) {
-      refresh();
-      close();
+      callbackSave();
+      handleClose();
     }
   };
 
@@ -35,8 +36,8 @@ const ModalAdd = ({ status, close, refresh }) => {
     >
       <TopBar handleClose={handleClose} title="Add Word the vocabulary" />
 
-      <Form
-        FormVocabulary={FormVocabulary}
+      <FormGrammar
+        dataGrammar={dataGrammar}
         buttons={
           <Grid item xs={12} textAlign="right" sx={{ mt: 3 }}>
             <Button
@@ -57,14 +58,14 @@ const ModalAdd = ({ status, close, refresh }) => {
   );
 };
 
-ModalAdd.propTypes = {
+AddModal.propTypes = {
   status: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
+  callbackSave: PropTypes.func,
 };
 
-ModalAdd.defaultProps = {
-  refresh: () => {},
+AddModal.defaultProps = {
+  callbackSave: () => {},
 };
 
-export default ModalAdd;
+export default AddModal;

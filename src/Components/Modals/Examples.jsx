@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { FormControl, FormLabel, Grid, TextField } from "@mui/material";
+import { FormControl, FormLabel, TextField } from "@mui/material";
 
 const Examples = ({ form }) => {
-  const examples = form.getExamples();
-
-  const handleChange = (value, key) => {};
   return (
     <FormControl fullWidth>
       <FormLabel component="legend">Examples</FormLabel>
-      {[...examples].map((example, key) => (
+      {form.getExamples().map((example, key) => (
         <TextField
           key={key}
           label={"Example " + (key + 1)}
@@ -20,7 +17,7 @@ const Examples = ({ form }) => {
           }}
           fullWidth
           sx={{ mt: 1 }}
-          placeholder="wefewf"
+          placeholder=""
         />
       ))}
     </FormControl>
