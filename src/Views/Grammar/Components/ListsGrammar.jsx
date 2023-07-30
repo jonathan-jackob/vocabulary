@@ -4,12 +4,45 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  Button,
+  IconButton,
   Typography,
 } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import {
+  Delete,
+  DeleteOutline,
+  EditNote,
+  ExpandMore,
+} from "@mui/icons-material";
+import useOpen from "Hooks/useOpen";
+import EditGrammar from "../Sections/Modals/EditGrammar";
+import useGrammar from "Hooks/useGrammar";
 
-const ListsGrammar = ({ data }) => {
+const ListsGrammar = ({ data, update }) => {
+  const modalEditOpen = useOpen();
+  const grammar = useGrammar();
   const [expanded, setExpanded] = useState(false);
+  const [dataEditGrammar, setDataEditGrammar] = useState({});
+
+  const openEditModal = (data) => {
+    setDataEditGrammar(data);
+    modalEditOpen.open();
+  };
+
+  const deleteItem = ({ id, title }) => {
+    if (confirm("Se eliminará el registro " + title.toUpperCase())) {
+      const deleteResponse = grammar.deleteItem(id);
+
+      if (deleteResponse.error) {
+        alert("Ocurrió un error al eliminar el item");
+      }
+
+      if (deleteResponse.success) {
+        update.toggle();
+      }
+    }
+  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -18,7 +51,8 @@ const ListsGrammar = ({ data }) => {
   const addStrong = (example, keywords) => {
     const kewordsArray = keywords.split(",");
     kewordsArray.forEach((keyword) => {
-      const regexp = new RegExp(keyword, "gi");
+      const regexp = new RegExp(`\\b(?<!\\w)${keyword.trim()}(?!\\w)\\b`, "gi");
+
       example = String(example).replace(
         regexp,
         "<strong>" + keyword + "</strong>"
@@ -58,15 +92,40 @@ const ListsGrammar = ({ data }) => {
                 ))}
               </ul>
             )}
+            <Box textAlign="right">
+              <IconButton
+                onClick={() => {
+                  openEditModal(data);
+                }}
+              >
+                <EditNote color="success" />
+              </IconButton>
+
+              <IconButton
+                onClick={() => {
+                  deleteItem(data);
+                }}
+              >
+                <DeleteOutline color="danger" />
+              </IconButton>
+            </Box>
           </AccordionDetails>
         </Accordion>
       ))}
+
+      <EditGrammar
+        status={modalEditOpen.status}
+        close={modalEditOpen.close}
+        data={dataEditGrammar}
+        callbackSave={update.toggle}
+      />
     </>
   );
 };
 
 ListsGrammar.propTypes = {
   data: PropTypes.array.isRequired,
+  update: PropTypes.object.isRequired,
 };
 
 export default ListsGrammar;

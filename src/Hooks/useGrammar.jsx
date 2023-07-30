@@ -3,7 +3,7 @@ import useResponse from "./useResponse";
 import useLocalStorage from "./useLocalStorage";
 import ordenarAsc from "Functions/ordenarAsc";
 
-const useGrammar = () => {
+const useGrammar = (dataInit = null) => {
   const formInit = {
     description: "",
     examples: [""],
@@ -18,6 +18,7 @@ const useGrammar = () => {
   const getDescription = () => data.description;
   const getExample = (key) => data.examples[key];
   const getExamples = () => data.examples;
+  const getId = () => data.id;
   const getKeywords = () => data.keywords;
   const getTitle = () => data.title;
 
@@ -109,8 +110,13 @@ const useGrammar = () => {
     }
   };
 
+  if (dataInit !== null) {
+    setAllData(dataInit);
+  }
+
   return {
     formInit,
+    data,
     clean,
     saveAdd,
     saveEdit,

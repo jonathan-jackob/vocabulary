@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Typography } from "@mui/material";
-import { PostAddOutlined } from "@mui/icons-material";
+import { NoteAdd, PostAddOutlined } from "@mui/icons-material";
 import useOpen from "Hooks/useOpen";
-import AddModal from "./Sections/Modals/AddModal";
+import AddModal from "./Sections/Modals/AddGrammar";
 import useLocalStorage from "Hooks/useLocalStorage";
 import ListsGrammar from "./Components/ListsGrammar";
 
@@ -46,8 +46,8 @@ const Grammar = () => {
         </Typography>
       </Box>
 
-      <Box>
-        <ListsGrammar data={dataGrammar} />
+      <Box px={2} mt={4}>
+        <ListsGrammar data={dataGrammar} update={update} />
       </Box>
 
       <Button
@@ -66,7 +66,7 @@ const Grammar = () => {
         variant="contained"
         onClick={modalAddOpen.open}
       >
-        <PostAddOutlined />
+        <NoteAdd />
       </Button>
 
       <AddModal
