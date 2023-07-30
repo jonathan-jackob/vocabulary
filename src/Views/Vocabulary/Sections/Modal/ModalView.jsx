@@ -16,10 +16,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import sinImagen from "../../../../Assets/no-image.png";
+import sinImagen from "Assets/no-image.png";
 import DialogContent from "@mui/material/DialogContent";
-import getTypesWord from "../../../../Functions/getTypesWord";
-import ChipCustomType from "../../../../Components/Vocabulary/ChipCustomType";
+import getTypesWord from "Functions/getTypesWord";
+import ChipCustomType from "Views/Vocabulary/Components/ChipCustomType";
 
 const ModalView = ({ status, close, form }) => {
   const handleClose = () => {

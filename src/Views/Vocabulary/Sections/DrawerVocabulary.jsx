@@ -11,7 +11,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
-import useLocalStorage from "../../../Hooks/useLocalStorage";
+import useLocalStorage from "Hooks/useLocalStorage";
 
 const DrawerVocabulary = ({ status, close, refresh }) => {
   const vocabulary = useLocalStorage("vocabulary");

@@ -5,18 +5,18 @@ import DrawerVocabulary from "./Sections/DrawerVocabulary";
 import ListItems from "./Sections/ListItems";
 import ModalAdd from "./Sections/Modal/ModalAdd";
 import SearchVocabulary from "./Sections/SearchVocabulary";
-import useOpen from "../../Hooks/useOpen";
-import useLocalStorage from "../../Hooks/useLocalStorage";
+import useOpen from "Hooks/useOpen";
+import useLocalStorage from "Hooks/useLocalStorage";
 
 function Vocabulary() {
   const modalAddOpen = useOpen();
   const drawerOpen = useOpen();
+  const vocabulary = useLocalStorage("vocabulary");
   const showWithoutData = useOpen();
   const [dataVocabulary, setDataVocabulary] = useState([]);
   const [freshData, setFreshData] = useState(false);
   const [searchWord, setSearchWord] = useState("");
   const [filter, setFilter] = useState("all");
-  const vocabulary = useLocalStorage("vocabulary");
 
   useEffect(() => {
     let objData = vocabulary.getDataJSON();

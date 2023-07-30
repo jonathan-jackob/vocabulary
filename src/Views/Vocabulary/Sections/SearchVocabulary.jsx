@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import useVocabulary from "../../../Hooks/useVocabulary";
+import useVocabulary from "Hooks/useVocabulary";
 
 const SearchVocabulary = ({ searchWord, setSearchWord, filter, setFilter }) => {
   const Formulario = useVocabulary();

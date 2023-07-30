@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Dialog, Grid, Slide } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
-import TopBar from "../../../../Components/Vocabulary/Modal/TopBar";
-import Form from "../../../../Components/Vocabulary/Modal/Form";
+import Form from "Views/Vocabulary/Components/Modal/Form";
+import TopBar from "Views/Vocabulary/Components/Modal/TopBar";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ordenarAsc from "../Functions/ordenarAsc";
 import useLocalStorage from "./useLocalStorage";
 import useResponse from "./useResponse";
+import ordenarAsc from "Functions/ordenarAsc";
 
 const useVocabulary = () => {
   const formInit = {

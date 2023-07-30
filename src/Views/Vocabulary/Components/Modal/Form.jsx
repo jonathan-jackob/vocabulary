@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import Types from "./Types";
-import VocabularyListItem from "../VocabularyListItem";
 import Examples from "./Examples";
 
 const Form = ({ form, buttons }) => {

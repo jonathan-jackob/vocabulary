@@ -1,9 +1,9 @@
 import React, { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Dialog, Grid, Slide } from "@mui/material";
-import useVocabulary from "../../../../Hooks/useVocabulary";
-import TopBar from "../../../../Components/Vocabulary/Modal/TopBar";
-import Form from "../../../../Components/Vocabulary/Modal/Form";
+import useVocabulary from "Hooks/useVocabulary";
+import TopBar from "Views/Vocabulary/Components/Modal/TopBar";
+import Form from "Views/Vocabulary/Components/Modal/Form";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "Assets": ["src/Assets"],
+      "Components": ["src/Components"],
+      "Functions": ["src/Functions"],
+      "Hooks": ["src/Hooks"],
+      "Theme": ["src/Theme"],
+      "Views": ["src/Views"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
