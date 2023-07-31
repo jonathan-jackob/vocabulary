@@ -52,8 +52,7 @@ const useGrammar = (dataInit = null) => {
   const setRule = (keyRule, rule) => {
     let rules = getRules();
     rules[keyRule] = rule;
-    rules = rules.filter((rule) => rule.title.trim() !== "");
-    setData({ ...data, rules: [...rules, ...initRules] });
+    setData({ ...data, rules });
   };
   const setTitle = (title) => {
     setData({ ...data, title });
@@ -70,6 +69,15 @@ const useGrammar = (dataInit = null) => {
        * se filtra y se eliminan todos y se agrega uno al final */
       examples: [...examples.filter((item) => item.trim() !== ""), ""],
     });
+  };
+
+  const addRule = () => {
+    setData({ ...data, rules: [...initRules, ...data.rules] });
+  };
+
+  const removeRule = (keyRule) => {
+    const rules = data.rules.filter((rule, key) => key !== keyRule);
+    setData({ ...data, rules });
   };
 
   const clean = () => {
@@ -140,6 +148,8 @@ const useGrammar = (dataInit = null) => {
     clean,
     saveAdd,
     saveEdit,
+    addRule,
+    removeRule,
     deleteItem,
     editExample,
     getDescription,

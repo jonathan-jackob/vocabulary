@@ -1,6 +1,18 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Box, FormLabel, Paper, TextField } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  Paper,
+  TextField,
+} from "@mui/material";
+import { Add, DeleteOutline } from "@mui/icons-material";
+import { grey } from "@mui/material/colors";
 
 const Rules = ({ dataGrammar }) => {
   const handleRuleTitle = (ruleData, keyRule, title) => {
@@ -15,10 +27,33 @@ const Rules = ({ dataGrammar }) => {
     dataGrammar.setRule(keyRule, ruleData);
   };
 
+  const deleteRule = (keyRule) => {
+    if (confirm("Do you want remove this rule?")) {
+      dataGrammar.removeRule(keyRule);
+    }
+  };
+
   return (
     <>
-      <FormLabel component="legend" sx={{ mt: 1 }}>
+      <FormLabel
+        component="legend"
+        sx={{
+          mt: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         Rules
+        <IconButton onClick={dataGrammar.addRule}>
+          <Add
+            sx={{
+              bgcolor: "primary.main",
+              color: "white",
+              borderRadius: "5px",
+            }}
+          />
+        </IconButton>
       </FormLabel>
 
       {dataGrammar.getRules().map((rule, keyRule) => (
@@ -28,18 +63,38 @@ const Rules = ({ dataGrammar }) => {
           sx={{
             my: 1,
             p: 2,
-            // bgcolor: rule.title === "" && keyRule > 0 ? "#eeeeee96" : "inherit",
           }}
         >
-          <TextField
-            variant="standard"
-            placeholder={keyRule === 0 ? "Rule" : "Other rule"}
-            value={rule.title}
-            onChange={({ target }) => {
-              handleRuleTitle(rule, keyRule, target.value);
-            }}
-            fullWidth
-          />
+          <FormControl variant="standard" fullWidth>
+            <InputLabel htmlFor={"rule__" + keyRule}>Rule</InputLabel>
+            <Input
+              id={"rule__" + keyRule}
+              type="text"
+              value={rule.title}
+              onChange={({ target }) => {
+                handleRuleTitle(rule, keyRule, target.value);
+              }}
+              endAdornment={
+                <InputAdornment position="end">
+                  {dataGrammar.getRules().length > 1 && (
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        deleteRule(keyRule);
+                      }}
+                    >
+                      <DeleteOutline
+                        sx={{
+                          color: "danger.light",
+                        }}
+                      />
+                    </IconButton>
+                  )}
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
           <Box sx={{ pl: 2 }}>
             {rule.examples.map((example, keyExample) => (
               <TextField
