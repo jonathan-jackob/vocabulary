@@ -72,7 +72,10 @@ const useGrammar = (dataInit = null) => {
   };
 
   const addRule = () => {
-    setData({ ...data, rules: [...initRules, ...data.rules] });
+    const rulesEmpties = data.rules.filter((rule) => rule.title === "");
+    if (rulesEmpties == 0) {
+      setData({ ...data, rules: [...initRules, ...data.rules] });
+    }
   };
 
   const removeRule = (keyRule) => {
@@ -92,23 +95,6 @@ const useGrammar = (dataInit = null) => {
     return response.success();
   };
 
-  const saveEdit = () => {
-    const errors = formValidate(); // validaciones antes de guardar información
-
-    if (errors.error) {
-      return errors;
-    }
-
-    const jsonTempo = grammar.getDataJSON(); // recuperamos información de local
-    let jsonGrammar = jsonTempo.map(
-      (form) => (data.id == form.id ? data : form) // actualizamos información del item modificado
-    );
-    ordenarAsc(jsonGrammar, "title"); // se orden a la información de a-z
-    grammar.setDataJSON(jsonGrammar); // guardamos la información en local
-
-    return response.success();
-  };
-
   const saveAdd = () => {
     const errors = formValidate(); // validaciones antes de guardar información
 
@@ -121,6 +107,29 @@ const useGrammar = (dataInit = null) => {
     jsonVocabulary.push({ ...data, id }); // agregamos nuevo item
     ordenarAsc(jsonVocabulary, "word"); // se orden a la información de a-z
     grammar.setDataJSON(jsonVocabulary); // guardamos la información en local
+    return response.success();
+  };
+
+  const saveEdit = () => {
+    const errors = formValidate(); // validaciones antes de guardar información
+
+    if (errors.error) {
+      return errors;
+    }
+
+    const jsonTempo = grammar.getDataJSON(); // recuperamos información de local
+    let jsonGrammar = jsonTempo.map(
+      (form) => {
+        if (data.id == form.id) {
+          const rules = data.rules.filter((rule) => rule.title.trim() !== "");
+          return { ...data, rules };
+        }
+        return form;
+      } // actualizamos información del item modificado
+    );
+    ordenarAsc(jsonGrammar, "title"); // se orden a la información de a-z
+    grammar.setDataJSON(jsonGrammar); // guardamos la información en local
+
     return response.success();
   };
 

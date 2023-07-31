@@ -5,6 +5,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Divider,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -80,40 +81,42 @@ const ListsGrammar = ({ data, update }) => {
               {grammar.title.toUpperCase()}
             </Typography>
           </AccordionSummary>
+
           <AccordionDetails sx={{ bgcolor: grey[50] }}>
-            <Typography>{grammar.description}</Typography>
-
-            {grammar.rules.length > 1 && (
-              <>
-                {grammar.rules.map((rule, keyRule) => (
-                  <Fragment key={keyRule}>
-                    <Typography> {rule.title}</Typography>
-
-                    {rule.examples.length > 1 && (
-                      <ul>
-                        {rule.examples.map((example, keyExample) => (
-                          <Fragment key={keyExample}>
-                            {example && (
-                              <li>
-                                <Typography
-                                  dangerouslySetInnerHTML={{
-                                    __html: addStrong(
-                                      example,
-                                      grammar.keywords,
-                                      grammar.inWords
-                                    ),
-                                  }}
-                                />
-                              </li>
-                            )}
-                          </Fragment>
-                        ))}
-                      </ul>
-                    )}
-                  </Fragment>
-                ))}
-              </>
+            {grammar.description && (
+              <Typography mb={2}>{grammar.description}</Typography>
             )}
+
+            {grammar.rules.map((rule, keyRule) => (
+              <Fragment key={keyRule}>
+                <Typography> {rule.title}</Typography>
+
+                {rule.examples.length > 1 && (
+                  <ul>
+                    {rule.examples.map((example, keyExample) => (
+                      <Fragment key={keyExample}>
+                        {example && (
+                          <li>
+                            <Typography
+                              dangerouslySetInnerHTML={{
+                                __html: addStrong(
+                                  example,
+                                  grammar.keywords,
+                                  grammar.inWords
+                                ),
+                              }}
+                            />
+                          </li>
+                        )}
+                      </Fragment>
+                    ))}
+                  </ul>
+                )}
+                {keyRule + 1 < grammar.rules.length && (
+                  <Divider sx={{ mb: 2 }} />
+                )}
+              </Fragment>
+            ))}
 
             <Box textAlign="right">
               <IconButton
