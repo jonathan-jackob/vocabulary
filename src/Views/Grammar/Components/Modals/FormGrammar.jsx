@@ -1,6 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Container, FormLabel, Grid, Paper, TextField } from "@mui/material";
+import {
+  Container,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from "@mui/material";
 import Rules from "Components/Modals/Form/Rules";
 
 const FormGrammar = ({ dataGrammar, buttons }) => {
@@ -51,7 +57,24 @@ const FormGrammar = ({ dataGrammar, buttons }) => {
           />
         </Grid>
       </Grid>
-
+      <Grid item xs={12}>
+        <FormControlLabel
+          sx={{
+            color: dataGrammar.getInWords() ? "danger.main" : "inherit",
+            mt: 2,
+          }}
+          control={
+            <Switch
+              checked={dataGrammar.getInWords()}
+              onChange={({ target }) => {
+                dataGrammar.setInWords(target.checked);
+              }}
+              color="danger"
+            />
+          }
+          label="Replace keyword in words"
+        />
+      </Grid>
       {buttons}
     </Container>
   );

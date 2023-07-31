@@ -15,8 +15,8 @@ import useLocalStorage from "Hooks/useLocalStorage";
 import generateHashDate from "Functions/generateHashDate";
 import useBackup from "Hooks/useBackup";
 
-const DrawerVocabulary = ({ status, close, refresh }) => {
-  const vocabulary = useLocalStorage("vocabulary");
+const DrawerGrammar = ({ status, close, refresh }) => {
+  const vocabulary = useLocalStorage("grammar");
   const backup = useBackup();
   const closeDrawer = () => {
     close();
@@ -25,7 +25,7 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
 
   const backupData = () => {
     const data = vocabulary.getDataJSON();
-    backup.downloadJSON(data, "vocabulary_" + generateHashDate());
+    backup.downloadJSON(data, "grammar_" + generateHashDate());
     closeDrawer();
   };
 
@@ -78,12 +78,12 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
   );
 };
 
-DrawerVocabulary.propTypes = {
+DrawerGrammar.propTypes = {
   status: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   refresh: PropTypes.func,
 };
-DrawerVocabulary.defaultProps = {
+DrawerGrammar.defaultProps = {
   refresh: () => {},
 };
-export default DrawerVocabulary;
+export default DrawerGrammar;

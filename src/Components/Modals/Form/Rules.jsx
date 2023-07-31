@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { FormLabel, Paper, TextField } from "@mui/material";
+import { Box, FormLabel, Paper, TextField } from "@mui/material";
 
 const Rules = ({ dataGrammar }) => {
   const handleRuleTitle = (ruleData, keyRule, title) => {
@@ -21,39 +21,46 @@ const Rules = ({ dataGrammar }) => {
         Rules
       </FormLabel>
 
-      {dataGrammar.getRules() &&
-        dataGrammar.getRules().map((rule, keyRule) => (
-          <Paper item key={keyRule} elevation={3} sx={{ mt: 2, p: 2 }}>
-            <TextField
-              label={`${keyRule + 1}.- Title Rule`}
-              value={rule.title}
-              onChange={(event) => {
-                handleRuleTitle(rule, keyRule, event.target.value);
-              }}
-              variant="standard"
-              fullWidth
-            />
+      {dataGrammar.getRules().map((rule, keyRule) => (
+        <Paper
+          key={keyRule}
+          elevation={5}
+          sx={{
+            my: 1,
+            p: 2,
+            // bgcolor: rule.title === "" && keyRule > 0 ? "#eeeeee96" : "inherit",
+          }}
+        >
+          <TextField
+            variant="standard"
+            placeholder={keyRule === 0 ? "Rule" : "Other rule"}
+            value={rule.title}
+            onChange={({ target }) => {
+              handleRuleTitle(rule, keyRule, target.value);
+            }}
+            fullWidth
+          />
+          <Box sx={{ pl: 2 }}>
             {rule.examples.map((example, keyExample) => (
               <TextField
-                key={`${keyRule}_${keyExample}`}
-                label={`${keyRule + 1}.${keyExample + 1}.- Example of rule`}
-                value={example}
-                onChange={(event) => {
-                  handleRuleExample(
-                    rule,
-                    keyRule,
-                    keyExample,
-                    event.target.value
-                  );
-                }}
                 variant="standard"
-                disabled={rule.title.trim() === ""}
-                sx={{ mt: 1 }}
+                key={keyExample}
+                placeholder={keyExample === 0 ? "Example" : "Other example"}
+                value={example}
+                onChange={({ target }) => {
+                  handleRuleExample(rule, keyRule, keyExample, target.value);
+                }}
+                disabled={rule.title === ""}
                 fullWidth
+                size="small"
+                sx={{
+                  mt: 2,
+                }}
               />
             ))}
-          </Paper>
-        ))}
+          </Box>
+        </Paper>
+      ))}
     </>
   );
 };

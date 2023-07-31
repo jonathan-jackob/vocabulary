@@ -16,6 +16,7 @@ const useGrammar = (dataInit = null) => {
     keywords: "",
     title: "",
     rules: initRules,
+    inWords: false,
   };
   const grammar = useLocalStorage("grammar");
   const response = useResponse();
@@ -26,6 +27,7 @@ const useGrammar = (dataInit = null) => {
   const getExample = (key) => data.examples[key];
   const getExamples = () => data.examples;
   const getId = () => data.id;
+  const getInWords = () => data.inWords;
   const getKeywords = () => data.keywords;
   const getRule = (key) => data.rules[key];
   const getRules = () => data.rules;
@@ -41,17 +43,20 @@ const useGrammar = (dataInit = null) => {
   const setExamples = (examples) => {
     setData({ ...data, examples });
   };
+  const setInWords = (inWords) => {
+    setData({ ...data, inWords });
+  };
   const setKeywords = (keywords) => {
     setData({ ...data, keywords });
-  };
-  const setTitle = (title) => {
-    setData({ ...data, title });
   };
   const setRule = (keyRule, rule) => {
     let rules = getRules();
     rules[keyRule] = rule;
     rules = rules.filter((rule) => rule.title.trim() !== "");
     setData({ ...data, rules: [...rules, ...initRules] });
+  };
+  const setTitle = (title) => {
+    setData({ ...data, title });
   };
 
   // functions
@@ -130,8 +135,8 @@ const useGrammar = (dataInit = null) => {
   }
 
   return {
-    formInit,
     data,
+    formInit,
     clean,
     saveAdd,
     saveEdit,
@@ -141,6 +146,7 @@ const useGrammar = (dataInit = null) => {
     getExample,
     getExamples,
     getId,
+    getInWords,
     getKeywords,
     getRule,
     getRules,
@@ -148,6 +154,7 @@ const useGrammar = (dataInit = null) => {
     setAllData,
     setDescription,
     setExamples,
+    setInWords,
     setKeywords,
     setRule,
     setTitle,
