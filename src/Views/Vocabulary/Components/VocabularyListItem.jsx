@@ -84,7 +84,7 @@ const VocabularyListItem = ({ form, openEdit, openView, ...others }) => {
           <Avatar
             onClick={openView}
             alt={form.word}
-            src={form.image.trim() === "" ? form.image : sinImagen}
+            src={form.image.trim() === "" ? sinImagen : form.image}
             variant="square"
             sx={{
               px: 0,

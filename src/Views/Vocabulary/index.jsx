@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Divider, Grid, IconButton, Typography } from "@mui/material";
 import { MoreVertOutlined, PostAddOutlined } from "@mui/icons-material";
-import DrawerVocabulary from "./Sections/DrawerVocabulary";
+import DrawerSettings from "../Sections/DrawerSettings";
 import ListItems from "./Sections/ListItems";
 import ModalAdd from "./Sections/Modal/ModalAdd";
 import SearchVocabulary from "./Sections/SearchVocabulary";
@@ -74,7 +74,7 @@ function Vocabulary() {
         >
           <MoreVertOutlined />
         </IconButton>
-        <DrawerVocabulary
+        <DrawerSettings
           status={drawerOpen.status}
           close={drawerOpen.close}
           refresh={refresh}

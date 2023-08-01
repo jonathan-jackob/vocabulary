@@ -17,7 +17,7 @@ import useOpen from "Hooks/useOpen";
 import AddModal from "./Sections/Modals/AddGrammar";
 import useLocalStorage from "Hooks/useLocalStorage";
 import ListsGrammar from "./Sections/ListsGrammar";
-import DrawerGrammar from "./Sections/DrawerGrammar";
+import DrawerSettings from "Views/Sections/DrawerSettings";
 
 const Grammar = () => {
   const modalAddOpen = useOpen();
@@ -85,7 +85,7 @@ const Grammar = () => {
           >
             <MoreVertOutlined />
           </IconButton>
-          <DrawerGrammar
+          <DrawerSettings
             status={drawerOpen.status}
             close={drawerOpen.close}
             refresh={update.toggle}

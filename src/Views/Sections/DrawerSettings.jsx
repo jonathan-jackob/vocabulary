@@ -7,16 +7,18 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
+  ListSubheader,
 } from "@mui/material";
 import { DownloadOutlined, UploadOutlined } from "@mui/icons-material";
 import useLocalStorage from "Hooks/useLocalStorage";
 import generateHashDate from "Functions/generateHashDate";
 import useBackup from "Hooks/useBackup";
 
-const DrawerVocabulary = ({ status, close, refresh }) => {
+const DrawerSettings = ({ status, close, refresh }) => {
   const vocabulary = useLocalStorage("vocabulary");
+  const grammar = useLocalStorage("grammar");
+
   const backup = useBackup();
   const closeDrawer = () => {
     close();
@@ -24,7 +26,10 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
   };
 
   const backupData = () => {
-    const data = vocabulary.getDataJSON();
+    const data = {
+      vocabulary: vocabulary.getDataJSON(),
+      grammar: grammar.getDataJSON(),
+    };
     backup.downloadJSON(data, "vocabulary_" + generateHashDate());
     closeDrawer();
   };
@@ -34,7 +39,15 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
       if (
         confirm("Se eliminaran los registros existentes, ¿deseas continuar?")
       ) {
-        vocabulary.setDataJSON(JSON.parse(e.target.result));
+        const data = JSON.parse(e.target.result);
+        if (typeof data.vocabulary === "object") {
+          vocabulary.setDataJSON(data.vocabulary);
+        }
+
+        if (typeof data.grammar === "object") {
+          grammar.setDataJSON(data.grammar);
+        }
+
         closeDrawer();
       }
     });
@@ -43,13 +56,24 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
   return (
     <Drawer anchor="right" open={status} onClose={closeDrawer}>
       <Box sx={{ width: 250 }} role="presentation" onKeyDown={closeDrawer}>
-        <List>
+        <List
+          subheader={
+            <ListSubheader
+              component="div"
+              id="nested-list-subheader"
+              sx={{
+                textAlign: "center",
+              }}
+            >
+              Settings
+            </ListSubheader>
+          }
+        >
+          <Divider />
           <ListItem key={1} disablePadding>
             <ListItemButton onClick={backupData}>
-              <ListItemIcon>
-                <DownloadOutlined />
-              </ListItemIcon>
               <ListItemText primary="Export data (Backup)" />
+              <DownloadOutlined sx={{ color: "default.main" }} />
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -57,19 +81,17 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
           <label>
             <ListItem key={2} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  <UploadOutlined />
-                </ListItemIcon>
                 <ListItemText primary="Import data" />
-                <input
-                  type="file"
-                  accept="application/JSON"
-                  className="d-none"
-                  hidden
-                  onChange={handleChange}
-                />
+                <UploadOutlined sx={{ color: "default.main" }} />
               </ListItemButton>
             </ListItem>
+            <input
+              type="file"
+              accept="application/JSON"
+              className="d-none"
+              hidden
+              onChange={handleChange}
+            />
           </label>
           <Divider />
         </List>
@@ -78,12 +100,12 @@ const DrawerVocabulary = ({ status, close, refresh }) => {
   );
 };
 
-DrawerVocabulary.propTypes = {
+DrawerSettings.propTypes = {
   status: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   refresh: PropTypes.func,
 };
-DrawerVocabulary.defaultProps = {
+DrawerSettings.defaultProps = {
   refresh: () => {},
 };
-export default DrawerVocabulary;
+export default DrawerSettings;

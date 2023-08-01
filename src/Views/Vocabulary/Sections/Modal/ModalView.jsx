@@ -55,12 +55,12 @@ const ModalView = ({ status, close, form }) => {
             >
               <CardMedia
                 component="img"
-                image={form.image ? sinImagen : form.image}
+                image={form.image.trim() === "" ? sinImagen : form.image}
                 alt="Paella dish"
                 sx={{
                   height: "auto",
                   width: "100%",
-                  objectFit: form.image ? "scale-down" : "cover",
+                  objectFit: "cover",
                   aspectRatio: "2/1.7",
                   borderRadius: 0,
                 }}
