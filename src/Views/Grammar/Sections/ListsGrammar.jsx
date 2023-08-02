@@ -14,6 +14,7 @@ import { grey } from "@mui/material/colors";
 import useOpen from "Hooks/useOpen";
 import EditGrammar from "./Modals/EditGrammar";
 import useGrammar from "Hooks/useGrammar";
+import addStrong from "Functions/addStrong";
 
 const ListsGrammar = ({ data, update }) => {
   const modalEditOpen = useOpen();
@@ -44,23 +45,6 @@ const ListsGrammar = ({ data, update }) => {
     }
   };
 
-  const addStrong = (example, keywords, inWords = false) => {
-    const keywordsArray = String(keywords).split(",");
-    keywordsArray.forEach((keyword) => {
-      const regexp = new RegExp(
-        inWords ? keyword.trim() : `\\b(?<!\\w)${keyword.trim()}(?!\\w)\\b`,
-        "gi"
-      );
-
-      example = String(example).replace(
-        regexp,
-        "<strong>" + keyword + "</strong>"
-      );
-    });
-
-    return example;
-  };
-
   return (
     <>
       {data.map((grammar, keyGrammar) => (
@@ -84,12 +68,29 @@ const ListsGrammar = ({ data, update }) => {
 
           <AccordionDetails sx={{ bgcolor: grey[50] }}>
             {grammar.description && (
-              <Typography mb={2}>{grammar.description}</Typography>
+              <Typography
+                mb={2}
+                dangerouslySetInnerHTML={{
+                  __html: addStrong(
+                    grammar.description,
+                    grammar.keywords,
+                    grammar.inWords
+                  ),
+                }}
+              />
             )}
 
             {grammar.rules.map((rule, keyRule) => (
               <Fragment key={keyRule}>
-                <Typography> {rule.title}</Typography>
+                <Typography
+                  dangerouslySetInnerHTML={{
+                    __html: addStrong(
+                      rule.title,
+                      grammar.keywords,
+                      grammar.inWords
+                    ),
+                  }}
+                />
 
                 {rule.examples.length > 1 && (
                   <ul>
