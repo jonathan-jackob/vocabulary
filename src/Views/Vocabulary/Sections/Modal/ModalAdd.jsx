@@ -1,6 +1,6 @@
-import React, { forwardRef, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Button, Dialog, Grid, Slide } from "@mui/material";
+import { Button, Dialog, Grid } from "@mui/material";
 import useVocabulary from "Hooks/useVocabulary";
 import TopBar from "Components/Modals/TopBar";
 import Form from "Views/Vocabulary/Components/Modal/FormVocabulary";
@@ -23,6 +23,7 @@ const ModalAdd = ({ status, close, refresh }) => {
     if (save.success) {
       refresh();
       close();
+      FormVocabulary.clean();
     }
   };
 

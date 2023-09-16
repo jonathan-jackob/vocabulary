@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Dialog, Grid, Slide } from "@mui/material";
+import { Box, Button, Dialog, Grid } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import Form from "Views/Vocabulary/Components/Modal/FormVocabulary";
 import TopBar from "Components/Modals/TopBar";
@@ -21,6 +21,7 @@ const ModalEdit = ({ status, close, Formulario, refresh }) => {
       if (response.success) {
         handleClose();
         refresh();
+        FormVocabulary.clean();
       }
     }
   };

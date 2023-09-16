@@ -123,7 +123,7 @@ const Grammar = () => {
         </Grid>
       </Paper>
 
-      <Box px={2} mt={4}>
+      <Box px={2} mt={4} pb={10}>
         <ListsGrammar data={dataGrammar} update={update} />
       </Box>
 

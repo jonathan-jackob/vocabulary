@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
 import Vocabulary from "./views/Vocabulary";
-import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Paper,
+} from "@mui/material";
 import { ChecklistOutlined, MenuBookOutlined } from "@mui/icons-material";
 import Grammar from "./Views/Grammar";
 
